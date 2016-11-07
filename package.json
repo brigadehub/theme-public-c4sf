@@ -1,0 +1,52 @@
+{
+  "name": "brigadehub-public-c4sf",
+  "version": "0.0.1",
+  "description": "Public theme for Brigadehub, developed for Code for San Francisco, based on Code for Poland",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "gulp start",
+    "build": "gulp build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/brigadehub/theme-public-c4sf.git"
+  },
+  "keywords": [
+    "brigadehub",
+    "brigade",
+    "code",
+    "for",
+    "america",
+    "c4a",
+    "cfa",
+    "c4sf",
+    "cfsf",
+    "san",
+    "francisco",
+    "cms",
+    "datahub",
+    "data",
+    "hub",
+    "website",
+    "skin",
+    "theme"
+  ],
+  "author": "Ozzy Haven <npm@therebelrobot.com> (@therebelrobot)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/brigadehub/theme-public-c4sf/issues"
+  },
+  "homepage": "https://github.com/brigadehub/theme-public-c4sf#readme",
+  "dependencies": {
+    "browserify": "^13.1.1",
+    "gulp": "^3.9.1",
+    "gulp-sass": "^2.3.2",
+    "gulp-sourcemaps": "^2.2.0",
+    "gulp-watch": "^4.3.10",
+    "jquery": "^3.1.1",
+    "moment": "^2.15.2",
+    "moment-timezone": "^0.5.9",
+    "vinyl-source-stream": "^1.1.0"
+  }
+}
