@@ -1,5 +1,4 @@
 extends layout
-- admin = ('admin'==brigade.location.timezone) ? 'selected' : null;
 block content
   .row.breadcrumbs
     .col-sm-12
@@ -190,7 +189,7 @@ block content
                   input.hidden(type='checkbox', name='externals['+index+'][delete]', id='externals-'+index+'delete')
                   span.btn.btn-danger(type='button')
                     i.fa.fa-trash
-         tr
+          tr
             td
               input.form-control(name='new-external[name]', id='new-external-name', value='', placeholder='Name (shows in Nav Bar)')
             td
@@ -233,7 +232,7 @@ block content
                       i.fa.fa-trash
                 td
                   input(type="radio", name="mainsponsor", value=index, checked=sponsor.main==true)
-           tr
+            tr
               td
                 input.form-control(name='new-sponsor[name]', id='new-sponsor-name', value='', placeholder='Name')
               td
@@ -282,7 +281,7 @@ block content
                     input(type='radio', name='landingstats['+index+'][display]', id='landingstats-'+index+'display', value='1', checked=landingstat.display==='1')
                   label(for='landingstats-'+index+'not_displayed') No&nbsp;&thinsp;&thinsp;
                     input(type='radio', name='landingstats['+index+'][display]', id='landingstats-'+index+'not_displayed', value='0', checked=landingstat.display==='0')
-           tr
+            tr
               td
                 input.form-control(name='new-landingstat[imglink]', id='new-landingstat-imglink', value='', placeholder='Image Link')
               td
@@ -337,7 +336,7 @@ block content
                   input.hidden(type='checkbox', name='redirects['+index+'][delete]', id="redirects-'+index+'delete")
                   span.btn.btn-danger(type='button')
                     i.fa.fa-trash
-         tr
+          tr
             td
               input.form-control(name='new-redirect[endpoint]', id='new-redirect-endpoint', value='', placeholder='/endpoint')
             td

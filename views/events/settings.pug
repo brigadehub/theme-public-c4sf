@@ -7,7 +7,7 @@ block content
       | &nbsp;&nbsp;/&nbsp;
       a(href='/events') Events
       | &nbsp;&nbsp;/&nbsp;
-      |=event.title
+      =event.title
       | &nbsp;/&nbsp;
       a(href='/events/'+event.id+'/settings') Settings
 
@@ -85,7 +85,7 @@ block content
           label.col-sm-3.control-label(for='description') Description
           .col-sm-7
             textarea.form-control(name='description', id='description', rows="6")
-              |=event.description
+              =event.description
         .form-group
           .col-sm-offset-3.col-sm-4
             button.btn.btn.btn-primary(type='submit')
