@@ -2,8 +2,6 @@
  *  Dependencies
  */
 
-var Users = require('models/Users')
-
 /**
  *  Exports
  */
@@ -21,6 +19,7 @@ module.exports = {
  */
 
 function postUpdateProfile (req, res, next) {
+  var Users = req.models.Users
   Users.findById(req.user.id, function (err, user) {
     if (err) {
       return next(err)

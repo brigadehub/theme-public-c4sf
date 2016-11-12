@@ -1,6 +1,4 @@
-const defaultSkills = require('config/defaultSkills.json')
-const defaultLocations = require('config/defaultLocations.json')
-const defaultReferredBy = require('config/defaultReferredBy.json')
+
 // TODO(therebelrobot): Move these into manage checkin page
 
 /**
@@ -18,6 +16,9 @@ module.exports = {
  *  Controller
  */
 function getCheckin (req, res, next) {
+  const defaultSkills = req.config.defaultSkills
+  const defaultLocations = req.config.defaultLocations
+  const defaultReferredBy = req.config.defaultReferredBy
   res.render(res.locals.brigade.theme.slug + '/views/checkin/index', {
     title: 'Check in',
     view: 'checkin',

@@ -1,4 +1,3 @@
-const Checkins = require('models/Checkins')
 
 /**
  *  Exports
@@ -15,6 +14,7 @@ module.exports = {
  *  Controller
  */
 function postCheckin (req, res, next) {
+  const Checkins = req.models.Checkins
   const formResponse = req.body
   formResponse.mailingList = formResponse.mailingList === 'mailingList'
   formResponse.date = new Date()

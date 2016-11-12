@@ -2,7 +2,6 @@
  *  Dependencies
  */
 
-var Users = require('models/Users')
 
 /**
  *  Exports
@@ -21,6 +20,7 @@ module.exports = {
  */
 
 function postDeleteAccount (req, res, next) {
+  var Users = req.models.Users
   if (req.body['verify-account-deletion-string'] === 'delete my account') {
     Users.remove({ _id: req.user.id }, function (err) {
       if (err) {

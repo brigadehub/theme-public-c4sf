@@ -2,10 +2,6 @@
  *  Dependencies
  */
 
-var Projects = require('models/Projects')
-var Events = require('models/Events')
-var Posts = require('models/Posts')
-
 var moment = require('moment')
 require('moment-timezone') // shim moment with the timezone functions
 
@@ -31,6 +27,9 @@ module.exports = {
  */
 
 function getIndex (req, res) {
+  var Projects = req.models.Projects
+  var Events = req.models.Events
+  var Posts = req.models.Posts
   console.log(req.user)
   Events.find({}, function (err, foundEvents) {
     if (err) console.error(err)

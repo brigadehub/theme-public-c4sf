@@ -3,7 +3,6 @@
  */
 
 var _ = require('lodash')
-var Users = require('models/Users')
 
 /**
  *  Exports
@@ -22,6 +21,7 @@ module.exports = {
  */
 
 function postDisconnectService (req, res, next) {
+  var Users = req.models.Users
   var service = req.params.service
   if (service === 'github') {
     req.flash('errors', { msg: 'Cannot disconnect Github account. Delete brigadehub account if you wish to disconnect.' })
