@@ -27,8 +27,12 @@ block content
   .row.page-header
     .col-sm-12
       h1.page-title Projects
-  if user && user.isProjectLead()
-    a.btn.btn-secondary(href='/projects/new') New Project
+        if user
+          a.btn.btn-secondary.pull-right(href='/projects/new') Create New Project
+        else
+          a.btn.btn-social.btn-github.pull-right(href='/auth/github')
+            i.fa.fa-github
+            | Log in to create new project
   .row
     hr
   .container

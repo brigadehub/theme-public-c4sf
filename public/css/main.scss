@@ -116,6 +116,10 @@ h1.page-title {
   font-weight: 700;
 
   color: #d20a11;
+  & .btn.pull-right {
+    position:relative;
+    top:30px;
+  }
 }
 .row.breadcrumbs {
   font-size: 12px;
