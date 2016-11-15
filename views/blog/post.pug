@@ -26,10 +26,11 @@ block content
               i(class="fa fa-trash-o" aria-hidden="true")
               | Delete
     .col-sm-12
-      | by&nbsp;
-      =post.author
+      if post.author
+        | by&nbsp;
+        =post.author
       br
-      span.timeago-render(date-time=post.date) post.date
+      span.timeago-render(date-time=post.date)=post.date
       .row tags:&nbsp;
         each tag, index in post.tags
           a(href='/blog?tag='+tag)=tag
