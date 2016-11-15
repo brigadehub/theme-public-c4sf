@@ -1,37 +1,46 @@
 extends ../layout
 
 mixin sidebarItem(name,subItems,selectedItem)
-  li= plural(capitalize(name))
+  li
+    strong=plural(capitalize(name))
+    br
     ul(data-sidebar=name)
       if selectedItem
         li
           a(href='?')
             i.fa.fa-close
             | Clear Selection
+        br
+      br
       each item in subItems
         li(class=selectedItem===item?'selected':'')
-          a(href='?'+name+'='+item)= item
+          a(href="?"+name+'='+item)=item
+      br
+      br
 
 block content
-  .breadcrumbs
+  .breadcrumbs.row
     .col-sm-12
       a(href='/')= brigade.name
       | &nbsp;&nbsp;/&nbsp;
       a(href='/blog') Blog
-  .page-header
+  .page-header.row
     .col-sm-12
       h1.page-title Blog
-  if user && user.isBlogger()
-    a.btn.btn-secondary(href='/blog/new') New Post
-  .la
-    hr
+        if user && (user.isBlogger() || user.roles.blog || user.roles.core || user.roles.superAdmin)
+          a.btn.btn-secondary.pull-right(href='/blog/new') New Post
+  hr.row
   .container
-    .la
+    .la.row
       .col-sm-3.sidebar
-        ul
+        br
+        span Filter your search:
+        br
+        br
+        ul(data-sidebar='true')
           +sidebarItem('tag',tags,selectedTag)
       .col-sm-9
-        .la
+        .la.row
           each post in posts
             if post.published
               .col-sm-6
@@ -44,11 +53,10 @@ block content
                         =post.title
                     p.card-text= post.description
                     p.card-author
-                      span Author
-                      =post.author
-                    p.card-date
-                      span Date
-                      =post.date
+                      span Written by&nbsp;
+                        =post.author
+                        span.timeago-render(datetime=post.date)
+                          =post.date
                     p.card-tags
                       span Tags
                       each tag in post.tags
@@ -65,3 +73,7 @@ block content
               | |
               a(href=currentUrl+(page+1)) Next
                 i(class='fa fa-arrow-right' aria-hidden='true')
+block script
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/timeago.js/2.0.3/timeago.min.js')
+  script.
+    new timeago().render(document.querySelectorAll('.timeago-render'))

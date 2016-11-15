@@ -15,16 +15,9 @@ block content
         a.float.right(href="/blog/post/"+post.slug+"/edit")
           i(class="fa fa-pencil-square-o" aria-hidden="true")
           | Edit this post
-        h1=post.title
 
   .row
-    .col-sm-12
-      | Post by&nbsp;
-      a(href="/user/"+post.author)=post.author
-  .row
-    .col-sm-12
-      .page-header.float
-        p=post.date
+    h1.page-title=post.title
       if (user && (user.isAdmin() || user.username === post.author))
         span
           form(method='POST', action='/blog/post/'+post.slug+'/delete')
@@ -32,14 +25,24 @@ block content
             button.float.right.btn.btn-primary(type='submit')
               i(class="fa fa-trash-o" aria-hidden="true")
               | Delete
+    .col-sm-12
+      | by&nbsp;
+      =post.author
+      br
+      span.timeago-render(date-time=post.date) post.date
+      .row tags:&nbsp;
+        each tag, index in post.tags
+          a(href='/blog?tag='+tag)=tag
+          if index !== post.tags.length-1
+            | ,&nbsp;
   .row
     if post.image
       .col-sm-12(style="display:block; background-image:url('"+post.image+"'); width:100%; height:399px; background-size:cover; background-position:center center;")
   .row
     .col-sm-9
       p !{post.content}
-    .row tags:
-      each tag, index in post.tags
-        a(href='/blog?tag='+tag)=tag
-        if index !== post.tags.length-1
-          | ,
+
+block script
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/timeago.js/2.0.3/timeago.min.js')
+  script.
+    new timeago().render(document.querySelectorAll('.timeago-render'))
