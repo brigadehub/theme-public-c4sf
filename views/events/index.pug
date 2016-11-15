@@ -11,8 +11,9 @@ block content
   .row.page-header
     .col-sm-12
       h1.page-title Events
-  if user && user.isAdmin()
-    a.btn.btn-secondary(href='/events/new') New Event
+        if user && user.isAdmin()
+          a.btn.btn-secondary.pull-right(href='/events/new') New Event
+  hr.row
   .row
     .col-xl-9.col-lg-8
       p
