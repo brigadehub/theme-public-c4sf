@@ -21,7 +21,11 @@ block content
     .form-group.row
       label.col-sm-3.control-label(for='author') Author
       .col-sm-7
-        input.form-control(type='text', name='author', id='author', value=user.username)
+        select.form-control.author-select(name='author', id='author')
+          option(value='') Publish unattributed
+          for author in users
+            option(value=author.username, data-img=author.profile.picture, selected=(author.id === user.id))=author.profile.name+' ('+author.username+')'
+    .form-group.row
     .form-group.row
       label.col-sm-3.control-label(for='url') Override Url (optional)
       .col-sm-7
@@ -32,9 +36,12 @@ block content
         input.form-control(type='text', name='image', id='image')
       .col-sm-4.col-sm-offset-3
     .form-group.row
-      label.col-sm-3.control-label(for='date') "Published on" date
+      label.col-sm-3.control-label(for='date') Published
       .col-sm-7
-        input.form-control(type='text', name='date', id='blogtime')
+        .input-group.datepicker(data-provide='datepicker')
+          input.form-control(type='text', name='date', id='date')
+          label.input-group-addon(for='date')
+            i.fa.fa-th
     .form-group.row
       label.col-sm-3.control-label(for='description') Short Description
       .col-sm-7
@@ -57,3 +64,22 @@ block content
         button.btn.btn.btn-secondary(type='submit', name='published', value='false')
           i.fa.fa-pencilr
           | Save Draft
+  block script
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/2.1.24/daterangepicker.min.js')
+    script.
+      $('input#date').daterangepicker({
+          singleDatePicker: true,
+          showDropdowns: true
+      });
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.min.js")
+    script.
+      $(document).ready(function() {
+        var teamSelectSettings = {
+          enableHTML: true,
+          optionLabel: function(element) {
+            if ($(element).attr('data-img')) return '<img class="avatar" src="'+$(element).attr('data-img')+'"> '+$(element).text()
+            return $(element).text()
+          }
+        }
+        $('.author-select').multiselect(teamSelectSettings)
+      })

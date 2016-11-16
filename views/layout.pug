@@ -9,6 +9,31 @@ html
     link(href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,400italic,700italic,300,300italic', rel='stylesheet,' type='text/css')
     link(rel='stylesheet', href='/css/vendors/bootstrap.css')
     link(rel='stylesheet', href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/5.0.0/bootstrap-social.min.css")
+    link(rel='stylesheet', href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/2.1.24/daterangepicker.css")
+    style(rel='stylesheet').
+      .daterangepicker .calendar {
+        max-width: none;
+      }
+    link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css")
+    style(rel="stylesheet").
+      .avatar {
+        width:30px;
+        filter: grayscale(100%) brightness(200%);
+      }
+      .dropdown-menu label.checkbox {
+        padding:5px;
+      }
+      .dropdown-menu a {
+        text-decoration:none;
+        color:#555;
+        cursor:pointer;
+      }
+      .dropdown-menu .checkbox input[type="checkbox"], .dropdown-menu .radio input[type="radio"] {
+        display:none;
+      }
+      .dropdown-menu .checkbox input[type="checkbox"]:checked + img, .dropdown-menu .radio input[type="radio"]:checked + img {
+        filter: grayscale(0%) brightness(100%);
+      }
     link(rel='stylesheet', href='/css/vendors/fullcalendar.css')
     link(rel='stylesheet', href='/css/vendors/bootstrap-tagsinput.css')
     link(rel='stylesheet', href='/css/main.css')

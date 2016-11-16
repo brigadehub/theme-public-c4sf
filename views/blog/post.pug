@@ -25,23 +25,24 @@ block content
             button.float.right.btn.btn-primary(type='submit')
               i(class="fa fa-trash-o" aria-hidden="true")
               | Delete
-    .col-sm-12
-      if post.author
-        | by&nbsp;
-        =post.author
-      br
-      span.timeago-render(date-time=post.date)=post.date
-      .row tags:&nbsp;
-        each tag, index in post.tags
-          a(href='/blog?tag='+tag)=tag
-          if index !== post.tags.length-1
-            | ,&nbsp;
   .row
     if post.image
       .col-sm-12(style="display:block; background-image:url('"+post.image+"'); width:100%; height:399px; background-size:cover; background-position:center center;")
   .row
-    .col-sm-9
+    .col-sm-9.blog-body
       p !{post.content}
+    .col-sm-3
+      if post.author
+        | by&nbsp;
+        =post.author
+      br
+      span.timeago-render(datetime=post.date)=post.date
+      if post.tags.length
+        .row tags:&nbsp;
+          each tag, index in post.tags
+            a(href='/blog?tag='+tag)=tag
+            if index !== post.tags.length-1
+              | ,&nbsp;
 
 block script
   script(src='https://cdnjs.cloudflare.com/ajax/libs/timeago.js/2.0.3/timeago.min.js')
