@@ -33,15 +33,15 @@ block content
                   input(type='checkbox', checked, name=post.id+'[published]', id='published')
                 else
                   input(type='checkbox', name=post.id+'[published]', id='published')
-              td
-                input(type='text', name=post.id+'[title]', value=post.title)
-              td
-                if(user.isAdmin())
-                  input(type='text', name=post.id+'[author]', value=post.author)
-                else
-                  =post.author
-              td
-                input(type='text', name=post.id+'[date]', value=post.date)
+              td.title= post.title
+                //- input(type='text', name=post.id+'[title]', value=post.title)
+              td.author= post.author
+                //- if(user.isAdmin())
+                //-   input(type='text', name=post.id+'[author]', value=post.author)
+                //- else
+                //-   =post.author
+              td.date= post.date
+                //- input(type='text', name=post.id+'[date]', value=post.date)
               td
                 a(href='/blog/post/'+post.slug+'/edit')
                   span edit
@@ -49,8 +49,8 @@ block content
                 i(class="fa fa-trash-o" aria-hidden="true")
                 input(type='checkbox', name=post.id+'[delete]' id="delete")
 
-      .form-group.row
-        .col-sm-4
-          button.btn.btn.btn-primary(type='submit')
-            i.fa.fa-pencilr
-            | Save Changes
+      //- .form-group.row
+      //-   .col-sm-4
+      //-     button.btn.btn.btn-primary(type='submit')
+      //-       i.fa.fa-pencilr
+      //-       | Save Changes
