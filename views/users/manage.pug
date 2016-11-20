@@ -13,7 +13,7 @@ block content
   .page-header
     h3 Manage users and roles
     a(href='/users/new')
-      button.btn.btn-default.pull-right(type='button')
+      button.btn.btn-default.pull-right.add-btn(type='button')
         | Add New User
     .row
       .col-sm-6
@@ -21,9 +21,9 @@ block content
         thead
           tr
             th.avatar
-            th username
-            th name
-            th email
+            th.username username
+            th.name name
+            th.email email
             th.select Blog
             th.select Projects
             th.select Project Lead

@@ -1,18 +1,41 @@
-[data-view='user-list-manage'] {
-  table {
-    table-layout:fixed;
+[data-view='user-list-manage']
+{
+  .add-btn
+  {
+    margin-bottom: 25px;
   }
-  th.avatar, td.avatar{
-    width:40px;
-    padding:5px;
-    min-width:0px;
-    max-width:40px;
-    img {
-      height:30px;
-      width:30px;
+  table
+  {
+    table-layout: fixed;
+  }
+  th.avatar,
+  td.avatar
+  {
+    width: 40px;
+    min-width: 0;
+    max-width: 40px;
+    padding: 5px;
+    img
+    {
+      width: 30px;
+      height: 30px;
     }
   }
-  th.select, td.select {
-    text-align:center;
+  th.select,
+  td.select
+  {
+    text-align: center;
+  }
+  th.username
+  {
+    width: 160px;
+  }
+  th.name
+  {
+    width: 225px;
+  }
+  th.email
+  {
+    width: 250px;
   }
 }
