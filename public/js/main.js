@@ -96,4 +96,21 @@ $(document).ready(function () {
     event.preventDefault()
     $('.login-toggle, .account-menu').toggleClass('active')
   })
+
+    var userSelectSettings = {
+      enableHTML: true,
+      optionLabel: function(element) {
+        if ($(element).attr('data-img')) return '<img class="avatar" src="'+$(element).attr('data-img')+'"> '+$(element).text()
+        return $(element).text()
+      }
+    }
+    $('.user-select').each(function () {
+      $(this).multiselect(userSelectSettings)
+    })
+    $('input.date-picker').each(function () {
+      $(this).daterangepicker({
+          singleDatePicker: true,
+          showDropdowns: true
+      })
+    })
 })

@@ -16,7 +16,7 @@ html
       }
     link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css")
     style(rel="stylesheet").
-      .avatar {
+      .dropdown-menu .avatar {
         width:30px;
         filter: grayscale(100%) brightness(200%);
       }
@@ -56,9 +56,11 @@ html
     script(src='/js/lib/moment.min.js')
     script(src='/js/lib/fullcalendar.js')
     script(src='/js/lib/simplemde.min.js')
-    script(src='/js/bundle.js')
     script(src='/js/lib/bootstrap-tagsinput.js')
     script(src='/js/lib/bootstrap3-typeahead.js')
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.min.js")
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/2.1.24/daterangepicker.min.js')
+    script(src='/js/bundle.js')
 
     if brigade.auth.segment.writeKey.length > 0
       // Segment tracking script
