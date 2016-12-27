@@ -35,7 +35,7 @@ function getBlogID (req, res) {
       return
     }
     post.content = md.render(post.content)
-    res.render(res.locals.brigade.theme.slug + '/views/blog/post', {
+    res.render(res.theme.public + '/views/blog/post', {
       view: 'blog-post',
       blogId: req.params.blogId,
       title: 'Blog',

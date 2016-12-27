@@ -26,7 +26,7 @@ function getProjectsID (req, res) {
     foundProject.content = md.render(foundProject.content)
     if (foundProject.contact.length) {
       Projects.fetchGitHubUsers(foundProject.contact, function (contactList) {
-        res.render(res.locals.brigade.theme.slug + '/views/projects/project', {
+        res.render(res.theme.public + '/views/projects/project', {
           view: 'project',
           projectId: req.params.projectId,
           title: foundProject.name,
@@ -36,7 +36,7 @@ function getProjectsID (req, res) {
         })
       })
     } else {
-      res.render(res.locals.brigade.theme.slug + '/views/projects/project', {
+      res.render(res.theme.public + '/views/projects/project', {
         view: 'project',
         projectId: req.params.projectId,
         title: foundProject.name,

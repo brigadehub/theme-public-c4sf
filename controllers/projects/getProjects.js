@@ -48,7 +48,7 @@ function getProjects (req, res) {
           return project.active
         })
       }
-      res.render(res.locals.brigade.theme.slug + '/views/projects/index', {
+      res.render(res.theme.public + '/views/projects/index', {
         view: 'project-list',
         title: 'Projects',
         brigade: res.locals.brigade,

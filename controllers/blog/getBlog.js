@@ -64,7 +64,7 @@ function getBlog (req, res) {
          currentUrl += '?' + 'page='
        }
 
-       res.render(res.locals.brigade.theme.slug + '/views/blog/index', {
+       res.render(res.theme.public + '/views/blog/index', {
          title: 'Blog',
          view: 'blog-list',
          brigade: res.locals.brigade,

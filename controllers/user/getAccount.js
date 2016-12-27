@@ -15,7 +15,7 @@ module.exports = {
  */
 
 function getAccount (req, res) {
-  res.render(res.locals.brigade.theme.slug + '/views/account/profile', {
+  res.render(res.theme.public + '/views/account/profile', {
     view: 'account-settings',
     title: 'Account Management',
     brigade: res.locals.brigade

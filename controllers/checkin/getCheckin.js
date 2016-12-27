@@ -19,7 +19,7 @@ function getCheckin (req, res, next) {
   const defaultSkills = req.config.defaultSkills
   const defaultLocations = req.config.defaultLocations
   const defaultReferredBy = req.config.defaultReferredBy
-  res.render(res.locals.brigade.theme.slug + '/views/checkin/index', {
+  res.render(res.theme.public + '/views/checkin/index', {
     title: 'Check in',
     view: 'checkin',
     brigade: res.locals.brigade,

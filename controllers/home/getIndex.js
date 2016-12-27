@@ -53,7 +53,7 @@ function getIndex (req, res) {
         if (err) console.error(err)
         var posts = foundPosts.length
         foundPosts = foundPosts.slice(0, 3)
-        res.render(res.locals.brigade.theme.slug + '/views/home', {
+        res.render(res.theme.public + '/views/home', {
           view: 'home',
           title: 'Home',
           checkin: (moment().tz(res.locals.brigade.location.timezone).format('dddd') === res.locals.brigade.checkIn.day),

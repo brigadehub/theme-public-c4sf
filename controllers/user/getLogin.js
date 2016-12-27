@@ -17,7 +17,7 @@ function getLogin (req, res) {
   if (req.user) {
     return res.redirect('/')
   }
-  res.render(res.locals.brigade.theme.slug + '/views/account/login', {
+  res.render(res.theme.public + '/views/account/login', {
     view: 'login',
     title: 'Login',
     brigade: res.locals.brigade
