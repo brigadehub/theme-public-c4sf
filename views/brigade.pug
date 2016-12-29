@@ -36,7 +36,7 @@ block content
             option(value=zone, selected=(zone == brigade.location.timezone))=zone
         | <br/><br/>
     .form-group
-      label.col-sm-3.control-label(for='url') Site Url
+      label.col-sm-3.control-label(for='url') Base Url (for Github Callback)
       .col-sm-7
         input.form-control(type='text', name='url', id='url', value=brigade.url)
     .form-group
