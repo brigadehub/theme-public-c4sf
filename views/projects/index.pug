@@ -7,14 +7,14 @@ mixin sidebarItem(name,subItems,selectedItem,showingInactive)
     ul(data-sidebar=name)
       if selectedItem
         li
-          a(href='?'+(showingInactive?'&showall=true':''))
+          a(href='?'+(showingInactive?'&showall=true':'')+(searchTerm?'&search='+searchTerm:''))
             i.fa.fa-close
             | Clear Selection
         br
       br
       each item in subItems
         li(class=selectedItem===item?'selected':'')
-          a(href="?"+name+'='+item+(showingInactive?'&showall=true':''))=item
+          a(href="?"+name+'='+item+(showingInactive?'&showall=true':'')+(searchTerm?'&search='+searchTerm:''))=item
       br
       br
 
@@ -50,16 +50,27 @@ block content
           | &nbsp;total
         br
         br
-        a(href="/projects/?showall=true"+(selectedKeyword?'&keyword='+selectedKeyword:'')+(selectedNeed?'&need='+selectedNeed:''), class=(showingInactive?'hidden':''))
+        a(href="/projects/?showall=true"+(selectedKeyword?'&keyword='+selectedKeyword:'')+(selectedNeed?'&need='+selectedNeed:'')+(searchTerm?'&search='+searchTerm:''), class=(showingInactive?'hidden':''))
           button.btn.btn-secondary Show inactive projects
-        a(href="/projects/?"+(selectedKeyword?'&keyword='+selectedKeyword:'')+(selectedNeed?'&need='+selectedNeed:''), class=(showingInactive?'':'hidden'))
+        a(href="/projects/?"+(selectedKeyword?'&keyword='+selectedKeyword:'')+(selectedNeed?'&need='+selectedNeed:'')+(searchTerm?'&search='+searchTerm:''), class=(showingInactive?'':'hidden'))
           button.btn.btn-secondary Hide inactive projects
         br
         br
         hr
         br
-        span Filter your search:
-        br
+        form.row.form-inline(action='/projects', method='GET')
+          .form-group.row
+            label.sr-only(for='search') Search Projects
+            .input-group
+              input.form-control(type='text', name='search', id='search', value=searchTerm, placeholder='Search Projects...')
+              .input-group-btn
+                button.btn.btn-primary
+                  i.fa.fa-search
+        if searchTerm
+          a(href='?'+(showingInactive?'&showall=true':'')+(selectedKeyword?'&keyword='+selectedKeyword:'')+(selectedNeed?'&need='+selectedNeed:''))
+            i.fa.fa-close
+            | Clear Search
+          br
         br
         ul(data-sidebar='true')
           +sidebarItem('keyword',keywords,selectedKeyword,showingInactive)

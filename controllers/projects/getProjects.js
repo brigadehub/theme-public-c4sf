@@ -2,6 +2,7 @@ var slug = require('slug')
 var markdown = require('markdown-it')
 var mdnh = require('markdown-it-named-headers')
 var md = markdown({ html: true }).use(mdnh)
+var _ = require('lodash')
 
 module.exports = {
   method: 'get',
@@ -21,6 +22,7 @@ function getProjects (req, res) {
   if (req.query.need) {
     mongooseQuery.needs = req.query.need
   }
+  let searchTerm = req.query.search
   // if (req.query.page) {
   //   page = req.query.page
   // }
@@ -28,6 +30,7 @@ function getProjects (req, res) {
     if (err) console.error(err)
     var allKeywords = []
     var allNeeds = []
+    if (searchTerm) foundProjects = filterSearchTerm(foundProjects, searchTerm)
     foundProjects.forEach(function (project) {
       project.keywords.forEach(function (keyword) {
         if (allKeywords.indexOf(keyword) < 0) {
@@ -48,6 +51,7 @@ function getProjects (req, res) {
           return project.active
         })
       }
+      if (searchTerm) foundProjects = filterSearchTerm(foundProjects, searchTerm)
       res.render(res.theme.public + '/views/projects/index', {
         view: 'project-list',
         title: 'Projects',
@@ -58,8 +62,32 @@ function getProjects (req, res) {
         keywords: allKeywords.sort(),
         needs: allNeeds.sort(),
         showingInactive: req.query.showall,
-        totalProjects: totalProjects
+        totalProjects,
+        searchTerm
       })
     })
   })
+}
+
+function filterSearchTerm (projects, searchTerm) {
+  searchTerm = searchTerm.toLowerCase()
+  console.log('searchTerm',searchTerm)
+  projects = projects.filter((project) => {
+    let keywordsContainTerm
+    let needsContainTerm
+    const titleContainsTerm = project.name.toLowerCase().indexOf(searchTerm) > -1
+    const descriptionContainsTerm = project.description.toLowerCase().indexOf(searchTerm) > -1
+    console.log('getting here', project.keywords, project.needs)
+    _.forEach(project.keywords, function(keyword) {
+      if (keyword && keyword.toLowerCase().indexOf(searchTerm) > -1) keywordsContainTerm = true
+    })
+    _.forEach(project.needs, function(need) {
+      if (need && need.toLowerCase().indexOf(searchTerm) > -1) needsContainTerm = true
+    })
+    console.log('getting here')
+    const searchTermPresent = keywordsContainTerm || needsContainTerm || titleContainsTerm || descriptionContainsTerm
+    console.log(searchTermPresent)
+    return searchTermPresent
+  })
+  return projects
 }
