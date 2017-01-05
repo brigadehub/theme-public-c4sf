@@ -4,12 +4,7 @@
 
 var moment = require('moment')
 require('moment-timezone') // shim moment with the timezone functions
-
-/**
- *  Config
- */
-
-var NUM_PROJECTS_SHOWN = 6
+var _ = require('lodash')
 
 /**
  *  Exports
@@ -39,7 +34,7 @@ function getIndex (req, res) {
       event.startDate = moment.unix(event.start).tz(res.locals.brigade.location.timezone).format('MMM DD')
       return event
     })
-    Projects.find({brigade: res.locals.brigade.slug}, function (err, foundProjects) {
+    Projects.find({brigade: res.locals.brigade.slug, active: true}).limit(5).exec(function (err, foundProjects) {
       if (err) console.error(err)
       var allKeywords = []
       foundProjects.forEach(function (project) {
@@ -49,10 +44,9 @@ function getIndex (req, res) {
           }
         })
       })
-      Posts.find({}, function (err, foundPosts) {
+      Posts.find({}).sort({ date: -1 }).limit(3).exec(function (err, foundPosts) {
         if (err) console.error(err)
         var posts = foundPosts.length
-        foundPosts = foundPosts.slice(0, 3)
         res.render(res.theme.public + '/views/home', {
           view: 'home',
           title: 'Home',
@@ -60,11 +54,11 @@ function getIndex (req, res) {
           brigade: res.locals.brigade,
           projectcount: foundProjects.length,
           postcount: posts,
-          projects: foundProjects.splice(0, NUM_PROJECTS_SHOWN),
+          projects: foundProjects,
           events: foundEvents.slice(0, 3),
           posts: foundPosts
         })
-      }).sort({unix: -1})
+      })
     })
-  }).sort({start: 1})
+  })
 }

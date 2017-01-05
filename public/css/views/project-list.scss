@@ -1,6 +1,10 @@
 [data-view='project-list'] {
+  .project-container {
+    min-height:100%;
+  }
   .project-list-card {
-    width:100%;
+    width: 350px;
+    padding:0;
     h3 {
       .badge {
         background-color: #808080;
@@ -29,6 +33,7 @@
       cursor:pointer;
       color:white;
       opacity:0.75;
+      font-size:12px;
       &:hover{
         opacity:1;
         text-decoration:none;

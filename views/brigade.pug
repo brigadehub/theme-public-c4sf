@@ -114,9 +114,35 @@ block content
   form.row.form-horizontal(action='/brigade', method='POST')
     input(type='hidden', name='_csrf', value=_csrf)
     .form-group.row
-      label.col-sm-3.control-label(for='theme-slug') Theme
+      label.col-sm-3.control-label(for='theme-admin') Admin Theme
       .col-sm-7
-        input.form-control(type='text', name='theme-slug', id='theme-slug', value=brigade.theme.slug)
+        select(name='theme-admin', id='theme-admin')
+          option brigadehub-admin-
+            =brigade.theme.admin
+            | &nbsp;(
+            =brigade.theme.adminVersion
+            | ) [current theme]
+          option(value='none') None (revert to API alone)
+          each theme in adminModules
+            option(value=theme.name+'@'+theme.version)=theme.name
+              | &nbsp;(
+              =theme.version
+              | )
+    .form-group.row
+      label.col-sm-3.control-label(for='theme-public') Public Theme
+      .col-sm-7
+        select(name='theme-public', id='theme-public')
+          option brigadehub-public-
+            =brigade.theme.public
+            | &nbsp;(
+            =brigade.theme.publicVersion
+            | ) [current theme]
+          option(value='none') None (revert to API alone)
+          each theme in publicModules
+            option(value=theme.name+'@'+theme.version)=theme.name
+              | &nbsp;(
+              =theme.version
+              | )
     .form-group.row
       label.col-sm-3.control-label(for='logo') Logo
       .col-sm-7

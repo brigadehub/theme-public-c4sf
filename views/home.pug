@@ -92,15 +92,19 @@ block content
           p.card-text Start a new project as its coordinator or join one of the existing multidisciplinary teams. Follow project development path from the needs analysis to the country wide deployment.
           a.btn.btn-red(href='http://www.github.com/'+brigade.github) Join Github
   hr
-  #landing-projects.row.center-block
-    h2.text-xs-center Projects
+  #landing-projects.row.center-block.ta-c
+    h2.text-xs-center Active Projects
 
     each project in projects
       // for perfect alignment, need a row on every odd instance of project. (row, col col, row, col col, etc. ) this code will look ok unitl you get a lot of description text on a project. - AB
 
-      .col-md-4.col-lg-2
+      .col-md-4.col-lg-2.d-ib
         #landing-project-1.landing-project
-          img.img-thumbnail(src=project.thumbnailUrl)
+          if project.thumbnailUrl.length > 0
+            img.img-thumbnail(src=project.thumbnailUrl)
+          else
+            .img-thumbnail-placeholder-square
+              .placeholder-img(style='background-image:url('+brigade.theme.logo+');')
           a(href='/projects/'+project.id)=project.name
 
 
@@ -112,11 +116,20 @@ block content
     for post in posts
       .col-sm-4
         #post-1.card.post
-          span.thumbnail(style='background-image:url('+post.image+');').img-fluid.card-img-top
+          if post.image
+            span.thumbnail.img-fluid.card-img-top(style='background-image:url('+post.image+');')
           .card-block
             h4.card-title
               a(href='/blog/post/'+post.slug)=post.title
             p.card-text=post.description
-            p.card-text=post.date
+            p.card-author
+              span Written by&nbsp;
+                =post.author
+              span.timeago-render(datetime=post.date)=post.date
     .col-sm-12.text-xs-center
       a.btn.btn-red(href="/blog") All Posts
+
+block script
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/timeago.js/2.0.3/timeago.min.js')
+  script.
+    new timeago().render(document.querySelectorAll('.timeago-render'))

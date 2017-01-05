@@ -40,29 +40,30 @@ block content
         ul(data-sidebar='true')
           +sidebarItem('tag',tags,selectedTag)
       .col-sm-9
-        .la.row
+        .la.row.post-container(data-masonry='{ "itemSelector": ".grid-item", "columnWidth": 358 }')
           each post in posts
             if post.published
-              .col-sm-6
-                .card.post-list-card
-                  if post.image
+              .col-sm-6.grid-item.card.post-list-card
+                if post.image
+                  a(href='/blog/post/'+post.slug)
+                    span.thumbnail(style='background-image:url('+post.image+');').img-fluid.card-img-top
+                .card-block
+                  h3.card-title
                     a(href='/blog/post/'+post.slug)
-                      span.thumbnail(style='background-image:url('+post.image+');').img-fluid.card-img-top
-                  .card-block
-                    h3.card-title
-                      a(href='/blog/post/'+post.slug)
-                        =post.title
-                    p.card-text= post.description
-                    p.card-author
-                      span Written by&nbsp;
+                      =post.title
+                  p.card-text= post.description
+                  p.card-author
+                    span
+                      if post.author.length
+                        | Written by&nbsp;
                         =post.author
-                        span.timeago-render(datetime=post.date)
-                          =post.date
-                    if post.tags.length
-                      p.card-tags
-                        span Tags
-                        each tag in post.tags
-                          a.badge(href='?tag='+tag)= tag
+                      span.timeago-render(datetime=post.date)
+                        =post.date
+                  if post.tags.length
+                    p.card-tags
+                      span Tags
+                      each tag in post.tags
+                        a.badge(href='?tag='+tag)= tag
         if totalPages > 1
           .col-md-12
             if page > 1
@@ -76,6 +77,7 @@ block content
               a(href=currentUrl+(page+1)) Next
                 i(class='fa fa-arrow-right' aria-hidden='true')
 block script
+  script(src='https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js')
   script(src='https://cdnjs.cloudflare.com/ajax/libs/timeago.js/2.0.3/timeago.min.js')
   script.
     new timeago().render(document.querySelectorAll('.timeago-render'))

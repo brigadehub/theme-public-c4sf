@@ -65,25 +65,28 @@ block content
           +sidebarItem('keyword',keywords,selectedKeyword,showingInactive)
           +sidebarItem('need',needs,selectedNeed,showingInactive)
       .col-sm-9
-        .row
-        each project in projects
-          if project.published
-            .col-sm-6
-              .card.project-list-card
+        .row.grid.project-container(data-masonry='{ "itemSelector": ".grid-item", "columnWidth": 358 }')
+          each project in projects
+            if project.published
+              .col-sm-6.card.project-list-card.grid-item
+                if project.thumbnailUrl.length
                   a(href='/projects/'+project.id)
                     span.thumbnail(style='background-image:url('+project.thumbnailUrl+');').img-fluid.card-img-top
-                  .card-block
-                    h3.card-title
-                      a(href='/projects/'+project.id)
-                        =project.name
-                        br
-                        span.badge.activity(class=(project.active?'active':'inactive'))=(project.active?'Active':'Inactive')
-                    p.card-text= project.description
-                    p.card-keywords
-                      span Keywords
-                      each keyword in project.keywords
-                        a.badge(href='?keyword='+keyword)= keyword
-                    p.card-needs
-                      span Needs
-                      each need in project.needs
-                        a.badge(href='?need='+need)= need
+                .card-block
+                  h3.card-title
+                    a(href='/projects/'+project.id)
+                      =project.name
+                      br
+                      span.badge.activity(class=(project.active?'active':'inactive'))=(project.active?'Active':'Inactive')
+                  p.card-text= project.description
+                  p.card-keywords
+                    span Keywords
+                    each keyword in project.keywords
+                      a.badge(href='?keyword='+keyword)= keyword
+                  p.card-needs
+                    span Needs
+                    each need in project.needs
+                      a.badge(href='?need='+need)= need
+
+block script
+  script(src='https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js')
