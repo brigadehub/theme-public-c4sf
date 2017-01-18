@@ -28,7 +28,7 @@ block content
     .col-sm-12
       h1.page-title Blog
         if user && (user.isBlogger() || user.roles.blog || user.roles.core || user.roles.superAdmin)
-          a.btn.btn-secondary.pull-right(href='/blog/new') New Post
+          a.btn.btn-secondary.pull-right(href='/admin/blog/new') New Post
   hr.row
   .container
     .la.row

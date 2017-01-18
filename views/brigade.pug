@@ -4,11 +4,11 @@ block content
     .col-sm-12
       a(href='/')=brigade.name
       | &nbsp;&nbsp;/&nbsp;
-      a(href='/brigade') Brigade
+      a(href='/admin/brigade') Brigade
   .page-header.row
     h3 Brigade Information
   hr
-  form.row.form-horizontal(action='/brigade', method='POST')
+  form.row.form-horizontal(action='/admin/brigade', method='POST')
     input(type='hidden', name='_csrf', value=_csrf)
     .form-group
       label.col-sm-3.control-label(for='name') Brigade Name
@@ -111,7 +111,7 @@ block content
   .page-header.row
     h3 Theme Settings
   hr
-  form.row.form-horizontal(action='/brigade', method='POST')
+  form.row.form-horizontal(action='/admin/brigade', method='POST')
     input(type='hidden', name='_csrf', value=_csrf)
     .form-group.row
       label.col-sm-3.control-label(for='theme-admin') Admin Theme
@@ -384,7 +384,7 @@ block content
               button.btn.btn-primary(type='submit') Save Changes
   .row
     hr
-  form.row.form-horizontal(action='/brigade', method='POST')
+  form.row.form-horizontal(action='/admin/brigade', method='POST')
     h3 Social Media Sign-in and Links
     hr
     input(type='hidden', name='_csrf', value=_csrf)
@@ -433,3 +433,13 @@ block content
         button.btn.btn.btn-primary(type='submit')
           i.fa.fa-pencil
           | Update Social Media
+  .row
+    hr
+  .row
+    .form-group
+      .col-sm-3
+        label Database Operations
+      .col-sm-4
+        a.btn.btn.btn-primary(type='submit', href='/api/db/backup?token='+user.jwt)
+          i.fa.fa-database
+          | Download DB Backup

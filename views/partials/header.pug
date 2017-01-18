@@ -34,11 +34,11 @@ nav.navbar.navbar-light.bg-faded.navbar-fixed-top
                     a.dropdown-item.divider
                   a.dropdown-item.header Management
                 if user.roles.core || user.roles.superAdmin
-                  a.dropdown-item(href='/brigade/dashboard')
+                  a.dropdown-item(href='/admin/brigade/dashboard')
                     i.fa.fa-tachometer
                     | Admin Dashboard
                 if user.roles.superAdmin
-                  a.dropdown-item(href='/brigade')
+                  a.dropdown-item(href='/admin/brigade')
                     i.fa.fa-home
                     | Manage Brigade
                 if user.roles.core || user.roles.superAdmin
@@ -135,7 +135,7 @@ nav.navbar.navbar-light.bg-faded.navbar-fixed-top
                     .header Management
                 if user.roles.superAdmin
                   li.nav-item
-                    a.nav-link(href='/brigade')
+                    a.nav-link(href='/admin/brigade')
                       i.fa.fa-home
                       | Manage Brigade
                 if user.roles.core || user.roles.superAdmin
