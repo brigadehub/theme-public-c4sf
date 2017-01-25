@@ -15,12 +15,9 @@ block content
         | &nbsp;
         =project.name
       if (user && (user.isAdmin() || user.isProjectLead()))
-        span
-          form(method='POST', action='/projects/'+project.id+'/delete')
-            input(type='hidden', name='_csrf', value=_csrf)
-            button.float.right.btn.btn-primary(type='submit')
-              i(class="fa fa-trash-o" aria-hidden="true")
-              | Delete
+        a.btn.btn-secondary.float.right(href='/admin/projects/'+project.id+'/settings')
+          i(class="fa fa-pencil-square-o" aria-hidden="true")
+          | Project Settings
   .row
     .col-sm-12
       .banner(style="margin-bottom: 50px;")

@@ -12,7 +12,7 @@ block content
   .row.page-header
     .col-sm-12
       if (user && (user.isAdmin() || user.username === post.author))
-        a.float.right(href="/blog/post/"+post.slug+"/edit")
+        a.float.right(href="/admin/blog/post/"+post.slug+"/edit")
           i(class="fa fa-pencil-square-o" aria-hidden="true")
           | Edit this post
 
@@ -20,7 +20,7 @@ block content
     h1.page-title=post.title
       if (user && (user.isAdmin() || user.username === post.author))
         span
-          form(method='POST', action='/blog/post/'+post.slug+'/delete')
+          form(method='POST', action='/admin/blog/post/'+post.slug+'/delete')
             input(type='hidden', name='_csrf', value=_csrf)
             button.float.right.btn.btn-primary(type='submit')
               i(class="fa fa-trash-o" aria-hidden="true")
