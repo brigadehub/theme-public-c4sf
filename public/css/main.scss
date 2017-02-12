@@ -149,6 +149,15 @@ img {
   max-width: 100%;
 }
 
+.btn {
+  &.small {
+    font-size: 90%;
+    font-weight: normal;
+  }
+}
+.ta-r{
+  text-align: right;
+}
 nav + .container {
   .row {
     display: block;

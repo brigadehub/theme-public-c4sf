@@ -18,6 +18,49 @@ mixin sidebarItem(name,subItems,selectedItem,showingInactive)
       br
       br
 
+mixin projectCard(project, show)
+  if show
+    a.card.project-list-card.grid-item(href='/projects/'+project.id)
+      .card-top.row
+        .thumbnail(style='background-image:url("'+project.thumbnailUrl+'");')
+        .details
+          .details-title=project.name
+          .details-tagline=project.description
+          .details-keywords
+            i.fa.fa-tags
+            if project.keywords.length
+              each keyword in project.keywords
+                .badge=keyword
+            else
+              em.small No keywords listed for this project
+          .details-needs
+            i.fa.fa-life-ring
+            if project.needs.length
+              each need in project.needs
+                .badge=need
+            else
+              em.small No needs listed for this project
+          //-   each keyword in project.keywords
+          //-     a.badge(href='?keyword='+keyword)=keyword
+          //- .details-needs
+          //-   each need in project.needs
+          //-     a.badge(href='?need='+need)=need
+      .card-metrics.row
+        .metric.metric-one
+          .metric-text=project.leads.length+project.members.length
+          .metric-title Contributors
+        .metric.metric-two
+          .metric-text(class=project.status.length>5?'small':'')=project.status
+          .metric-title Project Status
+        .metric.metric-three
+          .metric-text
+            .indicator(class=project.active?'active':'')
+          .metric-title
+            if project.active
+              | Active Project
+            else
+              | Inactive Project
+
 block content
   .row.breadcrumbs
     .col-sm-12
@@ -35,69 +78,105 @@ block content
             | Log in to create new project
   .row
     hr
-  .container
+  .row.filter-selection
+    .col-sm-12
+      form.form-inline(action='/projects', method='GET')
+        input(type='hidden', id='showall', name='showall', value=showingInactive.toString())
+        select.hidden(name='needs', id='needs', multiple=true)
+          for tag in needs
+            option(value=tag, selected=(selectedNeeds.indexOf(tag)>-1?true:false))=tag
+        select.hidden(name='keywords', id='keywords', multiple=true)
+          for tag in keywords
+            option(value=tag, selected=(selectedKeywords.indexOf(tag)>-1?true:false))=tag
+        .form-group.row
+          label.sr-only(for='search') Search Projects
+          .input-group
+            input.form-control(type='text', name='search', id='search', value=searchTerm, placeholder='Search Projects...')
+            .input-group-btn
+              button.btn.btn-primary
+                i.fa.fa-search
+      form.form-inline(action='/projects', method='GET')
+        input(type='hidden', id='showall', name='showall', value=showingInactive.toString())
+        input(type='hidden', name='search', id='search', value=searchTerm)
+        select.hidden(name='needs', id='needs', multiple=true)
+          for tag in needs
+            option(value=tag, selected=(selectedNeeds.indexOf(tag)>-1?true:false))=tag
+        .input-group
+          select.form-control.keywords-select(name='keywords', id='keywords', multiple=true)
+            for tag in keywords
+              option(value=tag, selected=(selectedKeywords.indexOf(tag)>-1?true:false))=tag
+          .input-group-btn
+            button.btn.btn-primary
+              i.fa.fa-tags
+      form.form-inline(action='/projects', method='GET')
+        input(type='hidden', id='showall', name='showall', value=showingInactive.toString())
+        input(type='hidden', name='search', id='search', value=searchTerm)
+        select.hidden(name='keywords', id='keywords', multiple=true)
+          for tag in keywords
+            option(value=tag, selected=(selectedKeywords.indexOf(tag)>-1?true:false))=tag
+        .input-group
+          select.form-control.needs-select(name='needs', id='needs', multiple=true)
+            for tag in needs
+              option(value=tag, selected=(selectedNeeds.indexOf(tag)>-1?true:false))=tag
+          .input-group-btn
+            button.btn.btn-primary
+              i.fa.fa-life-ring
+      form.float.right.form-inline(action='/projects', method='GET', class=((!searchTerm || !searchTerm.length) && !selectedKeywords.length && !selectedNeeds.length)?'hidden':'')
+        input(type='hidden', id='showall', name='showall', value=showingInactive.toString())
+        input(type='hidden', name='search', id='search', value='')
+        select.hidden(name='keywords', id='keywords', multiple=true)
+        select.hidden(name='needs', id='needs', multiple=true)
+        button.btn.btn-secondary.standalone
+          i.fa.fa-close
+          | &nbsp;Clear filters
+
+  .row
+    hr
+  .row
+    .col-sm-6.small.float.right.ta-r
+      | Showing&nbsp;
+      strong=projects.length
+      | &nbsp;
+      = (showingInactive?'':'active ')
+      | projects out of&nbsp;
+      strong=totalProjects
+      | &nbsp;total&nbsp;&nbsp;
+      form.form-inline(action='/projects', method='GET', class=showingInactive?'hidden':'')
+        select.hidden(name='needs', id='needs', multiple=true)
+          for tag in needs
+            option(value=tag, selected=(selectedNeeds.indexOf(tag)>-1?true:false))=tag
+        select.hidden(name='keywords', id='keywords', multiple=true)
+          for tag in keywords
+            option(value=tag, selected=(selectedKeywords.indexOf(tag)>-1?true:false))=tag
+        input(type='hidden', name='search', id='search', value=searchTerm)
+        input(type='hidden', id='showall', name='showall', value='true')
+        button.small.btn.btn-secondary Show inactive projects
+      form.form-inline(action='/projects', method='GET', class=showingInactive?'':'hidden')
+        select.hidden(name='needs', id='needs', multiple=true)
+          for tag in needs
+            option(value=tag, selected=(selectedNeeds.indexOf(tag)>-1?true:false))=tag
+        select.hidden(name='keywords', id='keywords', multiple=true)
+          for tag in keywords
+            option(value=tag, selected=(selectedKeywords.indexOf(tag)>-1?true:false))=tag
+        input(type='hidden', name='search', id='search', value=searchTerm,)
+        input(type='hidden', id='showall', name='showall', value='false')
+        button.small.btn.btn-secondary Hide inactive projects
+  .row
+    hr
+  .container.project-listing
     .row
-      .col-sm-3.sidebar
-        span
-          | Showing&nbsp;
-          strong=projects.length
-          | &nbsp;
-          = (showingInactive?'':'active ')
-          | projects
-          br
-          | out of&nbsp;
-          strong=totalProjects
-          | &nbsp;total
-        br
-        br
-        a(href="/projects/?showall=true"+(selectedKeyword?'&keyword='+selectedKeyword:'')+(selectedNeed?'&need='+selectedNeed:'')+(searchTerm?'&search='+searchTerm:''), class=(showingInactive?'hidden':''))
-          button.btn.btn-secondary Show inactive projects
-        a(href="/projects/?"+(selectedKeyword?'&keyword='+selectedKeyword:'')+(selectedNeed?'&need='+selectedNeed:'')+(searchTerm?'&search='+searchTerm:''), class=(showingInactive?'':'hidden'))
-          button.btn.btn-secondary Hide inactive projects
-        br
-        br
-        hr
-        br
-        form.row.form-inline(action='/projects', method='GET')
-          .form-group.row
-            label.sr-only(for='search') Search Projects
-            .input-group
-              input.form-control(type='text', name='search', id='search', value=searchTerm, placeholder='Search Projects...')
-              .input-group-btn
-                button.btn.btn-primary
-                  i.fa.fa-search
-        if searchTerm
-          a(href='?'+(showingInactive?'&showall=true':'')+(selectedKeyword?'&keyword='+selectedKeyword:'')+(selectedNeed?'&need='+selectedNeed:''))
-            i.fa.fa-close
-            | Clear Search
-          br
-        br
-        ul(data-sidebar='true')
-          +sidebarItem('keyword',keywords,selectedKeyword,showingInactive)
-          +sidebarItem('need',needs,selectedNeed,showingInactive)
-      .col-sm-9
-        .row.grid.project-container(data-masonry='{ "itemSelector": ".grid-item", "columnWidth": 358 }')
+      .col-sm-12
+        .row.grid.project-container(data-masonry='{ "itemSelector": ".grid-item", "gutter": 14, "columnWidth": 350 }')
           each project in projects
-            if project.published
-              .col-sm-6.card.project-list-card.grid-item
-                if project.thumbnailUrl.length
-                  a(href='/projects/'+project.id)
-                    span.thumbnail(style='background-image:url('+project.thumbnailUrl+');').img-fluid.card-img-top
-                .card-block
-                  h3.card-title
-                    a(href='/projects/'+project.id)
-                      =project.name
-                      br
-                      span.badge.activity(class=(project.active?'active':'inactive'))=(project.active?'Active':'Inactive')
-                  p.card-text= project.description
-                  p.card-keywords
-                    span Keywords
-                    each keyword in project.keywords
-                      a.badge(href='?keyword='+keyword)= keyword
-                  p.card-needs
-                    span Needs
-                    each need in project.needs
-                      a.badge(href='?need='+need)= need
+            +projectCard(project, project.published || showingInactive)
+
 
 block script
   script(src='https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js')
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js")
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.min.js")
+  script.
+    $(document).ready(function() {
+      $('.needs-select').multiselect({nonSelectedText:'Filter by project needs'})
+      $('.keywords-select').multiselect({nonSelectedText:'Filter by project keywords'})
+    })
