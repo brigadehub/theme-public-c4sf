@@ -14,11 +14,11 @@ function getProjectsID (req, res) {
   var Projects = req.models.Projects
   var Users = req.models.Users
   Projects.findOne({
-    brigade: res.locals.brigade.slug,
     id: req.params.projectId
   }, function (err, foundProject) {
     if (err) console.error(err)
     if (foundProject === null) {
+      req.flash('errors', {msg: `Unable to find project with id ${req.params.projectId}`})
       res.redirect('/projects/')
       return
     }
