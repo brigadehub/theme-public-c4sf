@@ -14,13 +14,19 @@ module.exports = {
 function getProjects (req, res) {
   var Projects = req.models.Projects
   var Users = req.models.Users
-  var mongooseQuery = {brigade: res.locals.brigade.slug}
+  var mongooseQuery = {}
   // var page
-  if (req.query.keyword) {
-    mongooseQuery.keywords = req.query.keyword
+  if (req.query.keywords) {
+    if(!_.isArray(req.query.keywords)) req.query.keywords = [req.query.keywords]
+    mongooseQuery.keywords = {
+      $in: req.query.keywords
+    }
   }
-  if (req.query.need) {
-    mongooseQuery.needs = req.query.need
+  if (req.query.needs) {
+    if(!_.isArray(req.query.needs)) req.query.needs = [req.query.needs]
+    mongooseQuery.needs = {
+      $in: req.query.needs
+    }
   }
   let searchTerm = req.query.search
   // if (req.query.page) {
@@ -46,7 +52,7 @@ function getProjects (req, res) {
     const totalProjects = foundProjects.length
     Projects.find(mongooseQuery, function (err, foundProjects) {
       if (err) console.error(err)
-      if (!req.query.showall) {
+      if (!req.query.showall || req.query.showall === 'false') {
         foundProjects = foundProjects.filter((project) => {
           return project.active
         })
@@ -57,11 +63,11 @@ function getProjects (req, res) {
         title: 'Projects',
         brigade: res.locals.brigade,
         projects: foundProjects,
-        selectedKeyword: req.query.keyword,
-        selectedNeed: req.query.need,
+        selectedKeywords: req.query.keywords || [],
+        selectedNeeds: req.query.needs || [],
         keywords: allKeywords.sort(),
         needs: allNeeds.sort(),
-        showingInactive: req.query.showall,
+        showingInactive: req.query.showall === 'true',
         totalProjects,
         searchTerm
       })
