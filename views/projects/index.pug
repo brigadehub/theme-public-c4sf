@@ -54,7 +54,7 @@ mixin projectCard(project, show)
           .metric-title Project Status
         .metric.metric-three
           .metric-text
-            .indicator(class=project.active?'active':'')
+            .active-indicator(class=project.active?'active':'')
           .metric-title
             if project.active
               | Active Project

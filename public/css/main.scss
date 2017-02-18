@@ -309,7 +309,18 @@ p.card-author, p.card-date {
     opacity: 65;
   }
 }
+.one-line {
+  display:block;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 // Import view specific styles
+
+@import 'components/active-indicator';
+@import 'components/user-avatar';
+@import 'components/project-list-card';
 
 @import 'views/account-settings';
 @import 'views/blog-list-manage';

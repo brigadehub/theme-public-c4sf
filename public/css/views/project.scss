@@ -9,6 +9,85 @@
       background-repeat:no-repeat;
     }
   }
+  .project-list-card {
+    height:auto;
+    width:100%;
+    .badge {
+    }
+    .details-keywords {
+      white-space:normal;
+      overflow:initial;
+      text-overflow:clip;
+      .badge{
+        margin-bottom:7px;
+        &:first-of-type {
+          margin-left:7px;
+        }
+      }
+    }
+    .details-needs {
+      white-space:normal;
+      overflow:initial;
+      text-overflow:clip;
+      .badge{
+        margin-bottom:7px;
+      }
+    }
+    .card-top {
+      .thumbnail {
+      }
+      .details {
+        width: calc(100% - 130px);
+        .details-title {
+          white-space:normal;
+          overflow:initial;
+          text-overflow:clip;
+        }
+        .details-tagline {
+          white-space:normal;
+          overflow:initial;
+          text-overflow:clip;
+          padding-bottom:14px;
+        }
+      }
+    }
+    .card-metrics {
+      height:auto;
+      padding:14px;
+      &.brigade {
+        padding:7px 14px;
+        text-align:center;
+        background:hsl(0, 0%, 90%);
+        h5 {
+          text-transform:uppercase;
+          font-size:80%;
+          letter-spacing:1.5px;
+          margin:0;
+        }
+      }
+      &.activity {
+        text-align:center;
+        .active-indicator {
+          margin-left:14px;
+        }
+      }
+      .metric {
+        .metric-text {
+          &.small {
+          }
+          .indicator {
+            &.active{
+            }
+          }
+        }
+        .metric-title {
+        }
+      }
+      .metric-three {
+      }
+    }
+  }
+
   .project-meta{
     display:block;
     border: solid 4px hsl(200, 63%, 52%);
@@ -42,7 +121,7 @@
             margin:0px 0px 5px 5px;
           }
         }
-        
+
       }
     }
   }
