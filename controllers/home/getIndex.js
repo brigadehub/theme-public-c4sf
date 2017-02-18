@@ -26,16 +26,55 @@ function getIndex (req, res) {
   var Events = req.models.Events
   var Posts = req.models.Posts
   console.log(req.user)
-  Events.find({}, function (err, foundEvents) {
-    if (err) console.error(err)
-    foundEvents = foundEvents.filter(function (event) {
-      return event.start >= moment().unix()
-    }).map(function (event) {
-      event.startDate = moment.unix(event.start).tz(res.locals.brigade.location.timezone).format('MMM DD')
-      return event
+  const ctx = { req, res }
+  getEvents(Events, ctx)
+    .then((results) => getProjects(Projects, results, ctx))
+    .then((results) => getPosts(Posts, results, ctx))
+    .then(({ foundEvents, currentEvents, allKeywords, foundProjects, foundPosts, posts }) => {
+      res.render(res.theme.public + '/views/home', {
+        view: 'home',
+        title: 'Home',
+        checkin: (moment().tz(res.locals.brigade.location.timezone).format('dddd') === res.locals.brigade.checkIn.day),
+        brigade: res.locals.brigade,
+        projectcount: foundProjects.length,
+        postcount: posts,
+        projects: foundProjects,
+        events: foundEvents.slice(0, 3),
+        posts: foundPosts,
+        nowTime: moment(new Date()).unix(),
+        currentEvents
+      })
     })
-    Projects.find({brigade: res.locals.brigade.slug, active: true}).limit(5).exec(function (err, foundProjects) {
-      if (err) console.error(err)
+    .catch((err) => {
+      console.log(err, 'ERROR')
+      res.status(500).send({error:err})
+    })
+}
+
+function getEvents (Events, ctx) {
+  const { req, res } = ctx
+  return new Promise((resolve, reject) => {
+    Events.find({}, function (err, foundEvents) {
+      if (err) reject(err)
+      foundEvents = _.sortBy(foundEvents, 'start')
+      foundEvents = foundEvents.filter(function (event) {
+        return event.end >= moment().unix()
+      }).map(function (event) {
+        event.startDate = moment.unix(event.start).tz(res.locals.brigade.location.timezone).format('MMM DD')
+        return event
+      })
+      var currentEvents = foundEvents.filter(function(event) {
+        return event.start <= moment().unix() && event.end >= moment().unix()
+      }).length
+      resolve({ foundEvents, currentEvents })
+    })
+  })
+}
+function getProjects (Projects, { foundEvents, currentEvents }, ctx) {
+  const { req, res } = ctx
+  return new Promise((resolve, reject) => {
+    Projects.find({active: true}).limit(5).exec(function (err, foundProjects) {
+      if (err) reject(err)
       var allKeywords = []
       foundProjects.forEach(function (project) {
         project.keywords.forEach(function (keyword) {
@@ -44,21 +83,17 @@ function getIndex (req, res) {
           }
         })
       })
-      Posts.find({}).sort({ date: -1 }).limit(3).exec(function (err, foundPosts) {
-        if (err) console.error(err)
-        var posts = foundPosts.length
-        res.render(res.theme.public + '/views/home', {
-          view: 'home',
-          title: 'Home',
-          checkin: (moment().tz(res.locals.brigade.location.timezone).format('dddd') === res.locals.brigade.checkIn.day),
-          brigade: res.locals.brigade,
-          projectcount: foundProjects.length,
-          postcount: posts,
-          projects: foundProjects,
-          events: foundEvents.slice(0, 3),
-          posts: foundPosts
-        })
-      })
+      resolve({ foundEvents, currentEvents, allKeywords, foundProjects })
+    })
+  })
+}
+function getPosts (Posts, { foundEvents, currentEvents, allKeywords, foundProjects }, ctx) {
+  const { req, res } = ctx
+  return new Promise((resolve, reject) => {
+    Posts.find({}).sort({ date: -1 }).limit(3).exec(function (err, foundPosts) {
+      if (err) reject(err)
+      var posts = foundPosts.length
+      resolve({ foundEvents, currentEvents, allKeywords, foundProjects, foundPosts, posts })
     })
   })
 }

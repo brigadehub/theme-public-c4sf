@@ -53,26 +53,36 @@
 
         margin-bottom: 0;
       }
+      @media (max-width: 47.9rem) {
+        position:relative;
+        bottom:auto;
+        left:auto;
+        width:100%;
+        padding-top:6rem;
+        float: left;
+      }
     }
     .landing-events {
       position: absolute;
       top: 25px;
       right: 15px;
       bottom: 25px;
-      @media (max-width: 47.9rem) {
-        display: none;
-      }
-      @media (max-width: 61.9rem) {
-        top: 53px;
-      }
+
       h5 {
         font-size: 1.5rem;
+        margin-top:14px;
+        margin-bottom:0;
+        &:last-child {
+          margin-bottom:14px;
+        }
+      }
+      ul {
+        padding:14px 0 0 0;
+      }
+      li {
+        padding:14px 0;
       }
       .list-group-item {
-        padding: 0.75rem 0 1.5rem;
-        &:last-child {
-          padding: 0.75rem 0 0.25rem;
-        }
         a span {
           // margin-top: -5px;
           display: block;
@@ -84,8 +94,8 @@
         }
         i {
           float: left;
-
-          padding-right: 10px;
+          margin-right: 14px;
+          margin-left: 14px;
         }
         .event-date {
           font-size: 1.2rem;
@@ -128,12 +138,20 @@
             font-size: 1rem;
           }
         }
+        &.checkin{
+          background:white;
+          color: hsla(360, 100%, 33%, 0.8);
+          padding: 14px 0 14px;
+          a {
+            color: hsla(360, 100%, 33%, 0.8);
+          }
+        }
       }
       .label {
         margin-left: 10px;
       }
       .content {
-        padding: 30px;
+        padding: 0 30px;
 
         color: white;
         border: 2px solid #ffffff;
@@ -143,8 +161,6 @@
         }
       }
       ul {
-        padding: 0;
-
         border: none;
         background: transparent;
         li {
@@ -156,60 +172,34 @@
           }
         }
       }
-    }
-  }
-  .landing-events-mobile {
-    display: none;
-  }
-  @media (max-width: 47.9rem) {
-    .landing-events-mobile {
-      display: block;
-
-      width: 100%;
-
-      background: rgba(170,0,1,0.8);
-      h5 {
-        font-size: 1.5rem;
-      }
-      .list-group-item {
-        padding: 0.75rem 0 1.5rem;
-        &:last-child {
-          padding: 0.75rem 0 0.25rem;
+      @media (max-width: 47.9rem) {
+        // display: none;
+        position: relative;
+        top: auto;
+        left: auto;
+        right: auto;
+        float: left;
+        bottom: auto;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        background: rgba(170,0,1,1);
+        .content {
+          border:none;
+          border-top: 2px solid hsl(0, 0%, 100%);
         }
-        a span {
-          // margin-top: -5px;
-          display: block;
-        }
-        a:hover {
-          text-decoration: none;
-
-          background-color: rgba(255,255,255,0.2);
-        }
-        i {
-          float: left;
-
-          padding-right: 10px;
-        }
-        .event-date {
-          font-size: 1.2rem;
-          font-weight: 700;
-        }
-        .event-title {
-          font-size: 1.4rem;
-        }
-        a.btn.btn-secondary.checkin {
+        h5 {
           font-size: 1.5rem;
-
-          width: 100%;
-          margin-top: 1rem;
-          margin-bottom: 1rem;
-          padding-top: 0.5rem;
-          padding-bottom: 0.5rem;
-
-          color: rgba(170,0,1,1);
-          &:hover {
-            background-color: rgba(255,255,255,0.75);
-          }
+        }
+        .list-group-item a span.event-date {
+          font-size: 28px;
+          font-weight: 700;
+          display:inline-block;
+          margin-right:14px;
+        }
+        .list-group-item a span.event-title {
+          font-size: 1.5rem;
+          display:inline-block;
         }
         @media (max-width: 335px) {
           .fa-2x {
@@ -223,30 +213,18 @@
           }
         }
       }
-      .label {
-        margin-left: 10px;
-      }
-      .content {
-        padding: 30px;
-
-        color: white;
-      }
-      ul {
-        padding: 0;
-
-        border: none;
-        background: transparent;
-        li {
-          color: white;
-          border: none;
-          background: transparent;
-          a {
-            color: white;
-          }
-        }
+    }
+    @media (max-width: 47.9rem) {
+      height:auto;
+      &:after {
+        content: "";
+        display: table;
+        clear: both;
       }
     }
   }
+
+
   .centered {
     margin: 0 auto;
     padding: 0 1em;
