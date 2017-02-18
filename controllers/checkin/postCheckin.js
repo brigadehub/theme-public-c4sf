@@ -32,6 +32,8 @@ function postCheckin (req, res, next) {
     }
   }
   formResponse.lead = lead
+  formResponse.event = formResponse.eventId
+  delete formResponse.eventId
   const checkin = new Checkins(formResponse)
   checkin.save((err, checkin) => {
     console.log('checked in!', err)

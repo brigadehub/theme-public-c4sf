@@ -16,6 +16,7 @@ module.exports = {
  *  Controller
  */
 function getCheckin (req, res, next) {
+  const eventId = req.query.eventid || ''
   const defaultSkills = req.config.defaultSkills
   const defaultLocations = req.config.defaultLocations
   const defaultReferredBy = req.config.defaultReferredBy
@@ -26,6 +27,7 @@ function getCheckin (req, res, next) {
     user: res.locals.user,
     locations: defaultLocations,
     skills: defaultSkills,
-    referredBy: defaultReferredBy
+    referredBy: defaultReferredBy,
+    eventId
   })
 }
