@@ -1,0 +1,115 @@
+.project-list-card {
+  display:block;
+  width:350px;
+  height:200px;
+  margin-bottom:14px;
+  color: black;
+  border-radius: .25rem;
+  & * {
+    box-sizing:border-box;
+  }
+  .badge {
+    display:inline-block;
+    font-size:60%;
+    font-weight:bold;
+    padding:1px 5px 2px;
+    border-radius: 3px;
+    color:white;
+    margin: 0 0 3px 3px;
+    font-family:"Source Sans Pro", "Helvetica", Arial, sans-serif;
+  }
+  .details-keywords {
+    white-space: nowrap;
+    overflow: hidden;
+    overflow-x:auto;
+    .badge{
+      background-color:hsl(200, 63%, 52%);
+    }
+  }
+  .details-needs {
+    white-space: nowrap;
+    overflow: hidden;
+    overflow-x:auto;
+    .badge{
+      background-color:hsl(0, 63%, 52%);
+    }
+  }
+  .card-top {
+    .thumbnail {
+      width:100px;
+      height:100px;
+      display:inline-block;
+      margin:14px;
+      border-radius:.25rem;
+      padding:0;
+      background-size:cover;
+      background-position:center center;
+      background-repeat:no-repeat;
+      background-color: hsl(0, 0%, 90%);
+      box-shadow:none;
+      float:left;
+    }
+    .details {
+      display:inline-block;
+      padding:14px 14px 0 0;
+      float:left;
+      width:215px;
+      .details-title {
+        font-weight:bold;
+        width:100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .details-tagline {
+        width:100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        opacity:0.65;
+      }
+
+    }
+  }
+  .card-metrics {
+    border-top:1px solid hsl(0, 0%, 90%);
+    width:100%;
+    height:70px;
+    background-color:hsl(0, 0%, 97%);
+    .metric {
+      border-right: 1px solid hsl(0, 0%, 90%);
+      width:33%;
+      float:left;
+      height:100%;
+      position:relative;
+      .metric-text {
+        display:block;
+        width:100%;
+        text-align:center;
+        font-size:28px;
+        font-weight:bold;
+        opacity:.75;
+        &.small {
+          font-size: 20px;
+          margin-top: 8px;
+        }
+        
+      }
+      .metric-title {
+        display:block;
+        width:100%;
+        position:absolute;
+        bottom:7px;
+        left:0px;
+        text-align:center;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        opacity:.65;
+      }
+    }
+    .metric-three {
+      border-right:none;
+    }
+  }
+}

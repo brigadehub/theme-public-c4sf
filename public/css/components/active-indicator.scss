@@ -1,0 +1,14 @@
+.active-indicator {
+  display:inline-block;
+  width:14px;
+  height:14px;
+  border-radius:100%;
+  background-color:hsl(0, 0%, 90%);
+  margin-top:7px;
+  &.active{
+    background-color:#4caf50;
+    opacity: 1;
+    -webkit-animation: blink 2.5s ease-in-out infinite;
+    animation: blink 2.5s ease-in-out infinite;
+  }
+}
