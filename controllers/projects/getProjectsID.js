@@ -22,7 +22,7 @@ function getProjectsID (req, res) {
       res.redirect('/projects/')
       return
     }
-
+    foundProject.repositories = foundProject.repositories || []
     foundProject.content = md.render(foundProject.content)
     if (foundProject.contact.length) {
       Projects.fetchGithubUsers(foundProject.contact, function (contactList) {
