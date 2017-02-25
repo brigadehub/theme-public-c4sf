@@ -73,7 +73,7 @@ function getEvents (Events, ctx) {
 function getProjects (Projects, { foundEvents, currentEvents }, ctx) {
   const { req, res } = ctx
   return new Promise((resolve, reject) => {
-    Projects.find({active: true}).limit(5).exec(function (err, foundProjects) {
+    Projects.find({active: true}).limit(3).exec(function (err, foundProjects) {
       if (err) reject(err)
       var allKeywords = []
       foundProjects.forEach(function (project) {
