@@ -1,0 +1,42 @@
+mixin projectCard(project, show)
+  if show
+    a.card.project-list-card.grid-item(href='/projects/'+project.id)
+      .card-top.row
+        .thumbnail(style='background-image:url("'+project.thumbnailUrl+'");')
+        .details
+          .details-title=project.name
+          .details-tagline=project.description
+          .details-keywords
+            i.fa.fa-tags
+            if project.keywords.length
+              each keyword in project.keywords
+                .badge=keyword
+            else
+              em.small No keywords listed for this project
+          .details-needs
+            i.fa.fa-life-ring
+            if project.needs.length
+              each need in project.needs
+                .badge=need
+            else
+              em.small No needs listed for this project
+          //-   each keyword in project.keywords
+          //-     a.badge(href='?keyword='+keyword)=keyword
+          //- .details-needs
+          //-   each need in project.needs
+          //-     a.badge(href='?need='+need)=need
+      .card-metrics.row
+        .metric.metric-one
+          .metric-text=project.leads.length+project.members.length
+          .metric-title Contributors
+        .metric.metric-two
+          .metric-text(class=project.status.length>5?'small':'')=project.status
+          .metric-title Project Status
+        .metric.metric-three
+          .metric-text
+            .active-indicator(class=project.active?'active':'')
+          .metric-title
+            if project.active
+              | Active Project
+            else
+              | Inactive Project
