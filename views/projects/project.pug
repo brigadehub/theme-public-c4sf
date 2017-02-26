@@ -100,6 +100,32 @@ block content
                   span.one-line
                     i.fa.fa-github
                     a(href=repo)= repo.split('://')[1]
+        if project.checkFromGithub && project.recentGithubActivity && project.recentGithubActivity.length
+          .card-metrics.row
+            span.one-line
+              i.fa.fa-clock
+              | Recent Github Activity
+              em &nbsp;(updates daily)
+            hr.row
+            each activity in project.recentGithubActivity
+              .activity.row.one-line
+                if activity.type === 'comment'
+                  a(href=activity.url, target="_blank")
+                    i.fa.fa-comment-o
+                    | &nbsp;
+                    span.timeago-render(datetime=activity.date)=activity.date
+                    | &nbsp;
+                    img.user-avatar(src=activity.commenter.avatar, style='width:20px;height:20px')
+                    | &nbsp;
+                    span=activity.comment
+                else
+                  a(href=activity.url, target="_blank")
+                    i.fa.fa-code-fork
+                    | &nbsp;
+                    span.timeago-render(datetime=activity.date)=activity.date
+                    | &nbsp;
+                    span=activity.commit_message
+
         .card-metrics.row.brigade
           | share to:&nbsp;
           a.btn.btn-social-icon.btn-facebook.btn-sm(href='#', data-provider='facebook')
@@ -132,7 +158,11 @@ block script
   input.share-name(type='hidden', value=project.name)
   input.share-description(type='hidden', value=project.description)
   input.share-image(type='hidden', value=project.thumbnail)
+  scropt(src="https://cdnjs.cloudflare.com/ajax/libs/emojify.js/0.9.5/emojify.js")
   script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js")
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/timeago.js/2.0.3/timeago.min.js')
+  script.
+    new timeago().render(document.querySelectorAll('.timeago-render'))
   script.
     $(document).ready(init)
     function init() {
