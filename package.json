@@ -6,6 +6,7 @@
   "scripts": {
     "postinstall": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "standard": "standard",
     "start": "gulp start",
     "build": "gulp build",
     "admin:publish": "npm version patch -m \"chore(version): bumped to %s\" && git push origin master && git push --tags && npm publish"
@@ -103,6 +104,20 @@
     "browserify": "^13.3.0",
     "gulp-sass": "^3.1.0",
     "gulp-sourcemaps": "^2.4.0",
+    "standard": "^8.6.0",
     "vinyl-source-stream": "^1.1.0"
+  },
+  "standard": {
+    "globals": [
+      "it",
+      "beforeEach",
+      "describe",
+      "afterEach",
+      "after"
+    ],
+    "ignore": [
+      "**/public/js/",
+      "migrations/"
+    ]
   }
 }
