@@ -47,7 +47,7 @@ function getIndex (req, res) {
     })
     .catch((err) => {
       console.log(err, 'ERROR')
-      res.status(500).send({error:err})
+      res.status(500).send({error: err})
     })
 }
 
@@ -63,7 +63,7 @@ function getEvents (Events, ctx) {
         event.startDate = moment.unix(event.start).tz(res.locals.brigade.location.timezone).format('MMM DD')
         return event
       })
-      var currentEvents = foundEvents.filter(function(event) {
+      var currentEvents = foundEvents.filter(function (event) {
         return event.start <= moment().unix() && event.end >= moment().unix()
       }).length
       resolve({ foundEvents, currentEvents })
