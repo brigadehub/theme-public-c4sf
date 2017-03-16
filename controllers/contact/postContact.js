@@ -1,4 +1,4 @@
-var nodemailer = require('nodemailer')
+
 module.exports = {
   method: 'post',
   endpoint: '/contact',
