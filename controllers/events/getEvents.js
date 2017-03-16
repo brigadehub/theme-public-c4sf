@@ -1,5 +1,4 @@
 const moment = require('moment')
-const uuid = require('node-uuid')
 require('moment-timezone')
 
 module.exports = {
