@@ -1,4 +1,3 @@
-var slug = require('slug')
 var markdown = require('markdown-it')
 var mdnh = require('markdown-it-named-headers')
 var md = markdown({ html: true }).use(mdnh)
@@ -12,7 +11,6 @@ module.exports = {
 
 function getProjectsID (req, res) {
   var Projects = req.models.Projects
-  var Users = req.models.Users
   Projects.findOne({
     id: req.params.projectId
   }, function (err, foundProject) {
