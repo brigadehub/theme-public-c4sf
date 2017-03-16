@@ -2,31 +2,25 @@
  *  Dependencies
  */
 
- var markdown = require('markdown-it')
- var mdnh = require('markdown-it-named-headers')
- var md = markdown({ html: true }).use(mdnh)
  var _ = require('lodash')
- var moment = require('moment')
- var slugify = require('slugify')
 
 /**
  *  Exports
  */
 
-module.exports = {
-  method: 'get',
-  endpoint: '/blog',
-  middleware: [],
-  controller: getBlog
-}
+ module.exports = {
+   method: 'get',
+   endpoint: '/blog',
+   middleware: [],
+   controller: getBlog
+ }
 
 /**
  *  Controller
  */
 
-function getBlog (req, res) {
-  var Post = req.models.Posts
-  var User = req.models.Users
+ function getBlog (req, res) {
+   var Post = req.models.Posts
    var POSTS_PER_PAGE = 9
    var page = 1
 
