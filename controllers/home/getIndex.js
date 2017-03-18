@@ -47,12 +47,12 @@ function getIndex (req, res) {
     })
     .catch((err) => {
       console.log(err, 'ERROR')
-      res.status(500).send({error:err})
+      res.status(500).send({error: err})
     })
 }
 
 function getEvents (Events, ctx) {
-  const { req, res } = ctx
+  const res = ctx.res
   return new Promise((resolve, reject) => {
     Events.find({}, function (err, foundEvents) {
       if (err) reject(err)
@@ -63,7 +63,7 @@ function getEvents (Events, ctx) {
         event.startDate = moment.unix(event.start).tz(res.locals.brigade.location.timezone).format('MMM DD')
         return event
       })
-      var currentEvents = foundEvents.filter(function(event) {
+      var currentEvents = foundEvents.filter(function (event) {
         return event.start <= moment().unix() && event.end >= moment().unix()
       }).length
       resolve({ foundEvents, currentEvents })
@@ -71,7 +71,6 @@ function getEvents (Events, ctx) {
   })
 }
 function getProjects (Projects, { foundEvents, currentEvents }, ctx) {
-  const { req, res } = ctx
   return new Promise((resolve, reject) => {
     Projects.find({active: true}).limit(3).exec(function (err, foundProjects) {
       if (err) reject(err)
@@ -88,7 +87,6 @@ function getProjects (Projects, { foundEvents, currentEvents }, ctx) {
   })
 }
 function getPosts (Posts, { foundEvents, currentEvents, allKeywords, foundProjects }, ctx) {
-  const { req, res } = ctx
   return new Promise((resolve, reject) => {
     Posts.find({}).sort({ date: -1 }).limit(3).exec(function (err, foundPosts) {
       if (err) reject(err)
