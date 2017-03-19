@@ -25,7 +25,6 @@ function getIndex (req, res) {
   var Projects = req.models.Projects
   var Events = req.models.Events
   var Posts = req.models.Posts
-  console.log(req.user)
   const ctx = { req, res }
   getEvents(Events, ctx)
     .then((results) => getProjects(Projects, results, ctx))
