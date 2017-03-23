@@ -32,7 +32,7 @@ function getIndex (req, res) {
     .then(({ foundEvents, currentEvents, allKeywords, foundProjects, foundPosts, posts }) => {
       // adjust project count to reflect active projects
       var projectDisplay = _.find(res.locals.brigade.displayedstats, {'caption': 'Active Projects'})
-      if (!projectDisplay) {
+      if (projectDisplay) {
         projectDisplay.stat = foundProjects.length
       }
 
