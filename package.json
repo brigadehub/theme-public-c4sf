@@ -1,6 +1,6 @@
 {
   "name": "brigadehub-public-c4sf",
-  "version": "0.3.11",
+  "version": "0.3.14",
   "description": "Public theme for Brigadehub, developed for Code for San Francisco, based on Code for Poland",
   "main": "index.js",
   "scripts": {

@@ -11,6 +11,8 @@ module.exports = {
 
 function getProjectsID (req, res) {
   var Projects = req.models.Projects
+  let projectLead
+  if (req.user && req.user.teams && req.user.teams.lead && req.user.teams.lead.includes(req.params.projectId)) projectLead = true
   Projects.findOne({
     id: req.params.projectId
   }, function (err, foundProject) {
@@ -30,7 +32,8 @@ function getProjectsID (req, res) {
           title: foundProject.name,
           brigade: res.locals.brigade,
           project: foundProject,
-          contacts: contactList
+          contacts: contactList,
+          projectLead
         })
       })
     } else {
@@ -40,7 +43,8 @@ function getProjectsID (req, res) {
         title: foundProject.name,
         brigade: res.locals.brigade,
         project: foundProject,
-        contacts: []
+        contacts: [],
+        projectLead
       })
     }
   })
