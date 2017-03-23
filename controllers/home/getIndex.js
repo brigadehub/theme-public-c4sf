@@ -30,6 +30,9 @@ function getIndex (req, res) {
     .then((results) => getProjects(Projects, results, ctx))
     .then((results) => getPosts(Posts, results, ctx))
     .then(({ foundEvents, currentEvents, allKeywords, foundProjects, foundPosts, posts }) => {
+      var projectDisplay = _.find(res.locals.brigade.displayedstats, {'caption': 'Active Projects'})
+      projectDisplay.stat = foundProjects.length
+
       res.render(res.theme.public + '/views/home', {
         view: 'home',
         title: 'Home',
