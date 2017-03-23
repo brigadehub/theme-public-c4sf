@@ -32,7 +32,7 @@ block content
             h5 Inactive Project
               .active-indicator
 
-        if (user && (user.isAdmin() || user.isProjectLead()))
+        if (user && (user.isAdmin() || projectLead))
           .card-metrics.row.brigade
             a.btn.btn-secondary(href='/admin/projects/'+project.id+'/settings')
               i(class="fa fa-pencil-square-o" aria-hidden="true")
