@@ -12,7 +12,7 @@ module.exports = {
 function getProjectsID (req, res) {
   var Projects = req.models.Projects
   let projectLead
-  if (req.user.teams.lead.includes(req.params.projectId)) projectLead = true
+  if (req.user && req.user.teams && req.user.teams.lead && req.user.teams.lead.includes(req.params.projectId)) projectLead = true
   Projects.findOne({
     id: req.params.projectId
   }, function (err, foundProject) {
