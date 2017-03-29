@@ -25,7 +25,7 @@ block content
             each event in events
               if event.start > nowTime
                 li.list-group-item
-                  a(href=event.url)
+                  a(href='/events/' + event.id)
                     i.fa.fa-calendar.fa-2x
                     span.event-date=event.startDate
                     span.event-title=event.title

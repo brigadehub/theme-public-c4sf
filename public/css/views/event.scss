@@ -1,3 +1,27 @@
 [data-view='event'] {
+  .event-card {
+  	margin: 30px 0;
+    width: 300px;
+    border: 1px solid #e5e5e5
+  }
+		.details {
+			padding: 20px;
+  		background-color: hsl(0, 0%, 90%);
+  	}
+		  .details-title {
+		    font-weight: bold;
+		    font-size: 3rem;
+		  }
+		
+		.card-metrics {
+			padding: 5px 20px;
+		}
+		  .activity {
+		  	
+		  	font-weight: bold;
+		    margin-bottom: 0.75rem;
+		    color: $brand-red;
+		  }
 
-}
+}		
+	
