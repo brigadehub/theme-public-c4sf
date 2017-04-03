@@ -1,7 +1,4 @@
-var slug = require('slug')
-var markdown = require('markdown-it')
-var mdnh = require('markdown-it-named-headers')
-var md = markdown({ html: true }).use(mdnh)
+
 var _ = require('lodash')
 
 module.exports = {
@@ -13,17 +10,16 @@ module.exports = {
 
 function getProjects (req, res) {
   var Projects = req.models.Projects
-  var Users = req.models.Users
   var mongooseQuery = {}
   // var page
   if (req.query.keywords) {
-    if(!_.isArray(req.query.keywords)) req.query.keywords = [req.query.keywords]
+    if (!_.isArray(req.query.keywords)) req.query.keywords = [req.query.keywords]
     mongooseQuery.keywords = {
       $in: req.query.keywords
     }
   }
   if (req.query.needs) {
-    if(!_.isArray(req.query.needs)) req.query.needs = [req.query.needs]
+    if (!_.isArray(req.query.needs)) req.query.needs = [req.query.needs]
     mongooseQuery.needs = {
       $in: req.query.needs
     }
@@ -77,17 +73,17 @@ function getProjects (req, res) {
 
 function filterSearchTerm (projects, searchTerm) {
   searchTerm = searchTerm.toLowerCase()
-  console.log('searchTerm',searchTerm)
+  console.log('searchTerm', searchTerm)
   projects = projects.filter((project) => {
     let keywordsContainTerm
     let needsContainTerm
     const titleContainsTerm = project.name.toLowerCase().indexOf(searchTerm) > -1
     const descriptionContainsTerm = project.description.toLowerCase().indexOf(searchTerm) > -1
     console.log('getting here', project.keywords, project.needs)
-    _.forEach(project.keywords, function(keyword) {
+    _.forEach(project.keywords, function (keyword) {
       if (keyword && keyword.toLowerCase().indexOf(searchTerm) > -1) keywordsContainTerm = true
     })
-    _.forEach(project.needs, function(need) {
+    _.forEach(project.needs, function (need) {
       if (need && need.toLowerCase().indexOf(searchTerm) > -1) needsContainTerm = true
     })
     console.log('getting here')
