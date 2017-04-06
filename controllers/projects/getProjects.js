@@ -45,7 +45,7 @@ function getProjects (req, res) {
         }
       })
     })
-    const totalProjects = foundProjects.length
+    const totalProjects = foundProjects && foundProjects.length
     Projects.find(mongooseQuery, function (err, foundProjects) {
       if (err) console.error(err)
       if (!req.query.showall || req.query.showall === 'false') {
