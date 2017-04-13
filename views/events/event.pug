@@ -9,186 +9,164 @@ block content
       | &nbsp;&nbsp;/&nbsp;
       a(href='/events/'+ event.id)=event.title
   .row
-    .col-md-4
+    .col-md-5
       .event-card
         .card-top.row
           .details
             .details-title=event.title
             .details-tagline=event.host
 
-            //-   each keyword in project.keywords
-            //-     a.badge(href='?keyword='+keyword)=keyword
-            //- .details-needs
-            //-   each need in project.needs
-            //-     a.badge(href='?need='+need)=need
         .card-metrics.row.brigade
           h5=event.location
         .card-metrics.row.activity
-            hr
-            h5=event.convertedStart
-            p.event-text
-              if (event.url.indexOf('meetup.com') > -1)
-                a(href=event.url, class='mu-rsvp-btn') RSVP
-              else
-                a(href=event.url, class='btn btn-red btn-sm') Link
-        .card-metrics.row.description
-            p=event.description        
-            br
-            if user && user.isAdmin()
-                a.btn.btn-secondary.pull-right(href='/admin/events/'+ event.id +'/settings/ ') Update Event
-    //-       if project.active
-    //-         h5 Active Project
-    //-           .active-indicator.active
-    //-       else
-    //-         h5 Inactive Project
-    //-           .active-indicator
+          hr
+          h5=event.convertedStart
+          p.event-text
+            if (event.url.indexOf('meetup.com') > -1)
+              a.btn.btn-primary(href=event.url,target="_blank", class='mu-rsvp-btn') RSVP
+            else
+              a(href=event.url, class='btn btn-red btn-sm') Link
+        
+     
+        .card-footer.row
+          .share
+            | share to:&nbsp;
+            a.btn.btn-social-icon.btn-facebook.btn-sm(href='#', data-provider='facebook')
+              span.fa.fa-facebook
+            a.btn.btn-social-icon.btn-twitter.btn-sm(href='#', data-provider='twitter')
+              span.fa.fa-twitter
+            a.btn.btn-social-icon.btn-google.btn-sm(href='#', data-provider='google')
+              span.fa.fa-google
+            a.btn.btn-social-icon.btn-linkedin.btn-sm(href='#', data-provider='linkedin')
+              span.fa.fa-linkedin
+            a.btn.btn-social-icon.btn-pinterest.btn-sm(href='#', data-provider='pinterest')
+              span.fa.fa-pinterest
+            a.btn.btn-social-icon.btn-reddit.btn-sm(href='#', data-provider='reddit')
+              span.fa.fa-reddit
+            a.btn.btn-social-icon.btn-github.btn-sm(href='#', data-provider='stumbleupon')
+              span.fa.fa-stumbleupon
 
-    //-     if (user && (user.isAdmin() || user.isProjectLead()))
-    //-       .card-metrics.row.brigade
-    //-         a.btn.btn-secondary(href='/admin/projects/'+project.id+'/settings')
-    //-           i(class="fa fa-pencil-square-o" aria-hidden="true")
-    //-           | Project Settings
-    //-     .card-metrics.row.status
-    //-       i.fa.fa-line-chart
-    //-       | Project Status:&nbsp;
-    //-       strong=project.status
+    .col-md-5         
+      .event-map
+        .map#map 
 
-    //-     .card-metrics.row
-    //-       span.one-line
-    //-         i.fa.fa-home
-    //-         a(href=project.homepage)= project.homepage.split('://')[1]
-    //-     .card-metrics.row
-    //-       .details-keywords
-    //-         i.fa.fa-tags
-    //-         if project.keywords.length
-    //-           each keyword in project.keywords
-    //-             .badge=keyword
-    //-         else
-    //-           em.small No keywords listed for this project
-    //-     .card-metrics.row
-    //-       .details-needs
-    //-         i.fa.fa-life-ring
-    //-         if project.needs.length
-    //-           each need in project.needs
-    //-             .badge=need
-    //-         else
-    //-           em.small No needs listed for this project
+    .col-md-2
+      .event-links 
+        a.btn.btn-red(href="/events") See All Events
+        a.btn.btn-red(href="/projects") See All Projects 
+        a.btn.btn-red(href="/blog") See All Posts
+        a.btn.btn-red(href="/contact") Contact Us
+  .row          
+    .col-md-12
+      .row.event-description
+        p=event.description        
+        br
+        if user && user.isAdmin()
+            a.btn.btn-secondary.pull-right(href='/admin/events/'+ event.id +'/settings/ ') Update 
+            
+block script
+  input.share-source(type='hidden', value=brigade.url)
+  input.share-name(type='hidden', value=event.title)
+  input.share-description(type='hidden', value=event.description)
+  script(src="https://openlayers.org/en/v4.0.1/build/ol.js" type="text/javascript")
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js")
+  script.
+    $(document).ready(init)
+    function init() {
+      setupSocialMediaButtons()
+      createLocationMap()  
+    }
+    function setupSocialMediaButtons() {
+      var thisUrl = encodeURIComponent(window.location.href)
+      var thisName = encodeURIComponent($('.share-name').val())
+      var thisDescription = encodeURIComponent($('.share-description').val())
+      var thisImage = encodeURIComponent($('.share-image').val())
+      var thisSource = encodeURIComponent($('.share-source').val())
+      $('.btn-social-icon').each(function(){
+        var $a = $(this)
+        var provider = $a.attr('data-provider')
+        var href
+        switch (provider) {
+          case 'facebook':
+            href = 'https://www.facebook.com/sharer/sharer.php?u='+thisUrl
+            break;
+          case 'twitter':
+            href = 'https://twitter.com/home?status=Check%20out%20this%20awesome%20event!%20'+thisName+'%3A%20'+thisUrl
+            break;
+          case 'google':
+            href = 'https://plus.google.com/share?url='+thisUrl
+            break;
+          case 'linkedin':
+            href = 'https://www.linkedin.com/shareArticle?mini=true&url='+thisUrl+'&title='+thisName+'&summary='+thisDescription+'&source='+thisSource
+            break;
+          case 'pinterest':
+            href = 'https://pinterest.com/pin/create/button/?url='+thisUrl+'&media=TESTIMAGEURLHERE&description='+thisDescription
+            break;
+          case 'reddit':
+            href = 'http://reddit.com/submit?url='+thisUrl+'&title='+thisName
+            break;
+          case 'stumbleupon':
+            href = 'http://www.stumbleupon.com/submit?url='+thisUrl+'&title='+thisName
+            break;
+        }
+        $a.attr('href',href)
+      })
+    }
 
-    //-     .card-metrics.row
-    //-       span.card-title
-    //-         | Project Lead
-    //-         if project.leads.length > 1
-    //-           | s
-    //-         | :
-    //-       if project.leads.length
-    //-         for lead in project.leads
-    //-           a(href='https://github.com/'+lead.username, target="_blank").user-avatar.float.right
-    //-             img(src=lead.profile.picture)
-    //-       else
-    //-         em.row There is no lead for this project currently. Want to lead this project?&nbsp;
-    //-           a(href='/contact') Let us know!
-    //-     .card-metrics.row
-    //-       .row
-    //-         span.card-title
-    //-           | Project Members:
-    //-         if project.members.length
-    //-           for member in project.members
-    //-             a(href='https://github.com/'+member.username, target="_blank").user-avatar.float.right
-    //-               img(src=member.profile.picture)
-    //-         else
-    //-           em There are no members for this project currently.
-    //-       em.row Want to help this project grow?&nbsp;
-    //-         a(href='/contact') Let us know!
-    //-     if project.repositories.length || project.repository.length
-    //-       .card-metrics.row
-    //-         if !project.repositories.length
-    //-           span.one-line
-    //-             i.fa.fa-github
-    //-             a(href=project.repository)= project.repository.split('://')[1]
-    //-         else
-    //-           each repo in project.repositories
-    //-             .row
-    //-               span.one-line
-    //-                 i.fa.fa-github
-    //-                 a(href=repo)= repo.split('://')[1]
-    //-     .card-metrics.row.brigade
-    //-       | share to:&nbsp;
-    //-       a.btn.btn-social-icon.btn-facebook.btn-sm(href='#', data-provider='facebook')
-    //-         span.fa.fa-facebook
-    //-       a.btn.btn-social-icon.btn-twitter.btn-sm(href='#', data-provider='twitter')
-    //-         span.fa.fa-twitter
-    //-       a.btn.btn-social-icon.btn-google.btn-sm(href='#', data-provider='google')
-    //-         span.fa.fa-google
-    //-       a.btn.btn-social-icon.btn-linkedin.btn-sm(href='#', data-provider='linkedin')
-    //-         span.fa.fa-linkedin
-    //-       a.btn.btn-social-icon.btn-pinterest.btn-sm(href='#', data-provider='pinterest')
-    //-         span.fa.fa-pinterest
-    //-       a.btn.btn-social-icon.btn-reddit.btn-sm(href='#', data-provider='reddit')
-    //-         span.fa.fa-reddit
-    //-       a.btn.btn-social-icon.btn-github.btn-sm(href='#', data-provider='stumbleupon')
-    //-         span.fa.fa-stumbleupon
+    var event =!{JSON.stringify(event)}
+    console.log(event, 'bas 2')
+    function createLocationMap() {
+      console.log(event, 'bas')
+      var lat = event.latitude;
+      var long = event.longitude
 
-    //- .col-md-8
-    //-   if project.bannerUrl.length
-    //-     .banner(style="margin-bottom: 50px;")
-    //-       span.project-banner(style='background-image:url('+project.bannerUrl+');').img-fluid
-    //-   if project.content.length
-    //-     p !{project.content}
-    //-   else
-    //-     p
-    //-       em This project hasn't added any content for profile yet. Would you like to assist them in that?&nbsp;
-    //-         a(href='/contact') Let us know!
-//- block script
-//-   input.share-source(type='hidden', value=brigade.url)
-//-   input.share-name(type='hidden', value=project.name)
-//-   input.share-description(type='hidden', value=project.description)
-//-   input.share-image(type='hidden', value=project.thumbnail)
-//-   script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js")
-//-   script.
-//-     $(document).ready(init)
-//-     function init() {
-//-       setupSocialMediaButtons()
-//-     }
-//-     function setupSocialMediaButtons() {
-//-       var thisUrl = encodeURIComponent(window.location.href)
-//-       var thisName = encodeURIComponent($('.share-name').val())
-//-       var thisDescription = encodeURIComponent($('.share-description').val())
-//-       var thisImage = encodeURIComponent($('.share-image').val())
-//-       var thisSource = encodeURIComponent($('.share-source').val())
-//-       $('.btn-social-icon').each(function(){
-//-         var $a = $(this)
-//-         var provider = $a.attr('data-provider')
-//-         var href
-//-         switch (provider) {
-//-           case 'facebook':
-//-             href = 'https://www.facebook.com/sharer/sharer.php?u='+thisUrl
-//-             break;
-//-           case 'twitter':
-//-             href = 'https://twitter.com/home?status=Check%20out%20this%20awesome%20project!%20'+thisName+'%3A%20'+thisUrl
-//-             break;
-//-           case 'google':
-//-             href = 'https://plus.google.com/share?url='+thisUrl
-//-             break;
-//-           case 'linkedin':
-//-             href = 'https://www.linkedin.com/shareArticle?mini=true&url='+thisUrl+'&title='+thisName+'&summary='+thisDescription+'&source='+thisSource
-//-             break;
-//-           case 'pinterest':
-//-             href = 'https://pinterest.com/pin/create/button/?url='+thisUrl+'&media=TESTIMAGEURLHERE&description='+thisDescription
-//-             break;
-//-           case 'reddit':
-//-             href = 'http://reddit.com/submit?url='+thisUrl+'&title='+thisName
-//-             break;
-//-           case 'stumbleupon':
-//-             href = 'http://www.stumbleupon.com/submit?url='+thisUrl+'&title='+thisName
-//-             break;
-//-         }
-//-         $a.attr('href',href)
-//-       })
-//-     }
-    // https://www.facebook.com/sharer/sharer.php?u=TESTURLHERE
-    // https://twitter.com/home?status=TWEETHERE
-    // https://plus.google.com/share?url=TESTURLHERE
-    // https://www.linkedin.com/shareArticle?mini=true&url=TESTURLHERE&title=TESTTITLE&summary=TESTSUMMARY&source=TESTSOURCEHERE
-    // https://pinterest.com/pin/create/button/?url=TESTSOURCEHERE&media=TESTIMAGEURLHERE&description=TESTDESCRIPTION
-    // http://reddit.com/submit?url=TESTURLHERE&title=TESTTITLE
-    // http://www.stumbleupon.com/submit?url=TESTURLHERE&title=TESTTITLE
+      var mapLayer = new ol.layer.Tile({
+        source: new ol.source.OSM()
+      });
+
+    var iconFeature = new ol.Feature({
+        geometry: new ol.geom.Point(ol.proj.fromLonLat([long, lat])),
+        name: event.titles  
+      });
+
+      var iconStyle = new ol.style.Style({
+        image: new ol.style.Icon(/** @type {olx.style.IconOptions} */ ({
+          anchor: [0.5, 46],
+          anchorXUnits: 'fraction',
+          anchorYUnits: 'pixels',
+          src: '/img/mapMarker.png'
+        }))
+      });
+
+      iconFeature.setStyle(iconStyle);
+
+      var vectorSource = new ol.source.Vector({
+        features: [iconFeature]
+      });
+
+      var vectorLayer = new ol.layer.Vector({
+        source: vectorSource
+      });
+
+      var map = new ol.Map({
+          target: 'map',
+          layers: [
+            mapLayer,
+            vectorLayer
+          ],
+          view: new ol.View({
+            center: ol.proj.fromLonLat([long, lat]),
+            zoom: 14
+          })
+      });
+    }
+
+    //- https://www.facebook.com/sharer/sharer.php?u=TESTURLHERE
+    //- https://twitter.com/home?status=TWEETHERE
+    //- https://plus.google.com/share?url=TESTURLHERE
+    //- https://www.linkedin.com/shareArticle?mini=true&url=TESTURLHERE&title=TESTTITLE&summary=TESTSUMMARY&source=TESTSOURCEHERE
+    //- https://pinterest.com/pin/create/button/?url=TESTSOURCEHERE&media=TESTIMAGEURLHERE&description=TESTDESCRIPTION
+    //- http://reddit.com/submit?url=TESTURLHERE&title=TESTTITLE
+    //- http://www.stumbleupon.com/submit?url=TESTURLHERE&title=TESTTITLE
+
+

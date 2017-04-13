@@ -25,8 +25,7 @@ function getEventsID (req, res) {
       res.redirect('/events/')
       return
     } else {
-      foundEvent.convertedStart = moment.unix(foundEvent.start).tz(res.locals.brigade.location.timezone).format('MMMM DD, YYYY ha z')
-      console.log(foundEvent, foundEvent.convertedstart , "bas getEventsID")
+      foundEvent.convertedStart = moment.unix(foundEvent.start).tz(res.locals.brigade.location.timezone).format('MMMM DD, YYYY ha')
       res.render(res.theme.public + '/views/events/event', {
         view: 'event',
         eventId: req.params.eventId,
