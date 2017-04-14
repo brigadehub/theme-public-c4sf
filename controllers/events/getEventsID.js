@@ -1,5 +1,5 @@
 const moment = require('moment')
-const uuid = require('node-uuid')
+// const uuid = require('node-uuid')
 require('moment-timezone')
 
 module.exports = {
@@ -13,13 +13,13 @@ function getEventsID (req, res) {
   var Events = req.models.Events
   Events.findOne({
     id: req.params.eventId
-  }, function(err, foundEvent) {
+  }, function (err, foundEvent) {
     if (err) {
       console.log(err)
       req.flash('errors', {msg: 'Unable to find event something whent wrong'})
       res.redirect('/events/')
       return
-     } 
+    }
     if (foundEvent === null) {
       req.flash('errors', {msg: `Unable to find event with id ${req.params.eventId}`})
       res.redirect('/events/')
