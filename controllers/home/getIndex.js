@@ -35,7 +35,6 @@ function getIndex (req, res) {
       if (projectDisplay) {
         projectDisplay.stat = foundProjects.length
       }
-
       res.render(res.theme.public + '/views/home', {
         view: 'home',
         title: 'Home',
@@ -66,10 +65,11 @@ function getEvents (Events, ctx) {
         return event.end >= moment().unix()
       }).map(function (event) {
         event.startDate = moment.unix(event.start).tz(res.locals.brigade.location.timezone).format('MMM DD')
+        event.checkinWindow = event.start - 7200
         return event
       })
       var currentEvents = foundEvents.filter(function (event) {
-        return event.start <= moment().unix() && event.end >= moment().unix()
+        return event.checkinWindow <= moment().unix() && event.end >= moment().unix()
       }).length
       resolve({ foundEvents, currentEvents })
     })

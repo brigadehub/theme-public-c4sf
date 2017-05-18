@@ -16,7 +16,7 @@ block content
           h5 Happening Right Now
             ul.list-group-item
               each event in events
-                if event.start < nowTime && event.end > nowTime
+                if event.checkinWindow < nowTime && event.end > nowTime
                   li.list-group-item.checkin
                     a(href='/checkin?eventid='+event._id)
                       i.fa.fa-calendar-check-o.fa-2x
@@ -25,7 +25,7 @@ block content
         h5 Upcoming events
           ul.list-group-item
             each event in events
-              if event.start > nowTime
+              if event.checkinWindow > nowTime
                 li.list-group-item
                   a(href='/events/' + event.id)
                     i.fa.fa-calendar.fa-2x
@@ -74,7 +74,7 @@ block content
           h4.card-title Build Projects
           p.card-text Start a new project as its coordinator or join one of the existing multidisciplinary teams. Follow project development path from the needs analysis to the country wide deployment.
           a.btn.btn-red(href='http://www.github.com/'+brigade.github) Join Github
-  hr  
+  hr
   if projects.length
     #landing-projects.row.center-block
       h2.text-xs-center Active Projects
