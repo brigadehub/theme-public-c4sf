@@ -1,4 +1,4 @@
-[data-view='event-list'] {
+  [data-view='event-list'] {
   .upcoming-title {
     margin-top: 1rem;
   }
@@ -23,9 +23,10 @@
     border-bottom: 1px solid  #e5e5e5;
     &:last-child {
       border: none;
-    }
+    }  
     .event-title {
       margin-bottom: 0.75rem;
+      font-size: 1.5rem;
     }
     .event-date {
       font-weight: bold;

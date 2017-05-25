@@ -1,3 +1,89 @@
 [data-view='event'] {
+	hr {
+		margin: 0px;
+	}
+	.event-card {
+	  	margin: 30px 0px;
+	    width: 400px;
+	    min-height: 427px;
+	    border: 1px solid #e5e5e5;
+        display: inline-block;
+        position: relative;
 
-}
+		.details {
+			padding: 20px;
+  			background-color: hsl(0, 0%, 90%);
+  		}
+			.details-title {
+			    font-weight: bold;
+			    font-size: 3rem;
+		  	}
+		  	.details-tagline {
+		  		font-weight: bold;
+		  	}
+		
+		.card-metrics {
+			padding: 5px 20px;
+		}
+			.activity {
+				
+				font-weight: bold;
+				margin-bottom: 0.75rem;
+				color: $brand-red;
+				a {
+					font-size: 1.8rem;
+					width: 220px;
+				}
+			}	
+		.card-footer {
+			background-color: hsl(0, 0%, 90%);
+			position: absolute;
+			bottom: 0;
+			left: 0;
+
+		}	
+	}		
+
+	.event-map {
+		margin: 30px 0;
+	    width: 400px;
+	    height: 427px;
+	    border: 1px solid #e5e5e5;
+	    display: inline-block;
+
+	    .map {
+        	height: 100%;
+       		width: 100%;
+   		}
+
+	}
+
+	.event-links  {
+		margin: 30px 0;
+		
+		a {
+			width: 100%;
+			margin-bottom: 30px;
+			margin-right: 30px;
+			vertical-align: top;
+			width: 150px;
+		}
+
+	}
+
+	.event-description {
+		width: 100%;
+		padding: 20px;
+		background-color: hsl(0, 0%, 90%);
+		display: inline-block;
+
+		p {
+			white-space: pre-line;
+			font-size: 1.2rem;
+		}
+	}
+
+
+
+}		
+	
