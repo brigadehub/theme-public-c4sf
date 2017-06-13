@@ -59,7 +59,7 @@ block content
   .row          
     .col-md-12
       .row.event-description
-        p=event.description        
+        p!=event.description        
         br
         if user && user.isAdmin()
             a.btn.btn-secondary.pull-right(href='/admin/events/'+ event.id +'/settings/ ') Update 
